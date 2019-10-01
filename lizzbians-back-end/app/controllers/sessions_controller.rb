@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
         if !@user
             render json: {error: `bad`, code: 3000, message: "Can't find user"}
         else
-            render json: {status: "yay!"}
+            session[:id] = @user.id
+            render json: @user
         end
     end
 
