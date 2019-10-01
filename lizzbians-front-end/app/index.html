@@ -32,69 +32,98 @@
 
 
 <body>
-    <h1>Lizzbians</h1> 
-    
-        <div id="wrapper">
-            <!-- Sidebar -->
-            <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#" id='theme'>Theme</a>
-                        </li>
-                        <li>
-                            <a href="#" id='change-password'>Change Password</a>
-                        </li>
-                        <li>
-                            <a href="#" id='delete'>Bye Bitch!</a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="#" id='leaderboard'>Leaderboard</a></li>
-                <li><a href="#" id='concert-dates'>Concert Dates</a></li>
-                <li><a href="#" id='lyrics'>Lyrics</a></li>
-                <li><a href="#" id='trivia'>Play Trivia</a></li>
-            </ul>
-        </div>         
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#" id='theme'>Theme</a>
+                    </li>
+                    <li>
+                        <a href="#" id='change-password'>Change Password</a>
+                    </li>
+                    <li>
+                        <a href="#" id='delete'>Bye Bitch!</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#" id='leaderboard'>Leaderboard</a></li>
+            <li><a href="#" id='concert-dates'>Concert Dates</a></li>
+            <li><a href="#" id='lyrics'>Lyrics</a></li>
+            <li><a href="#" id='trivia'>Play Trivia</a></li>
+        </ul>
+    </div>         
+    <div id="page-content-wrapper" class='container-fluid'>
+        <h1 class='text-center'>Lizzbians</h1> 
+        <img src=https://lizzbians.s3-us-west-2.amazonaws.com/lizzo_flute.jpg id='trill-button'>
+        <audio controls src="https://lizzbians.s3-us-west-2.amazonaws.com/44+second+flute+trill+-+world+record+lol.mp3" id='trill-audio' class='hidden'></audio>
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
                 <a href="#" class="btn" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <!-- Page Content -->
-                    <div id='inner-content'>
-                        <div id='choose-game' class='container-fluid text-center'>
-                            <h2>Which type of quiz would you like to play?</h2>
-                            <div id='regular-game' class='col-lg-6'>
-                                <img src=https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg class='choice-image'><br>
-                                <button class='choice-button'>Regular Game</button>
-                            </div>
-                            <div id='speed-game' class='col-lg-6'>
-                                <img src=https://lizzbians.s3-us-west-2.amazonaws.com/sparkly.jpg class='choice-image'><br>
-                                <button class='choice-button'>Speed Game</button>
+                    <div id='inner-content' class='col-lg-12'>
+                        <!-- Choose Game Type -->
+                        <div id='choose-game' class='hidden'>
+                            <h2 class='text-center'>Which type of quiz would you like to play?</h2>
+                            <div>
+                                <div class=col-lg-1></div>
+                                <div id='regular-game' class='col-lg-5 '>
+                                    <img class='text-center' src=https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg class='choice-image'><br>
+                                    <button class='choice-button'>Regular Game</button>
+                                </div>
+                                <div id='speed-game' class='col-lg-5'>
+                                    <img src=https://lizzbians.s3-us-west-2.amazonaws.com/sparkly.jpg class='choice-image'><br>
+                                    <button class='choice-button'>Speed Game</button>
+                                </div>
                             </div>
                         </div>
-                        <img src=https://lizzbians.s3-us-west-2.amazonaws.com/lizzo_flute.jpg id='trill-button'>
-                        <audio controls src="https://lizzbians.s3-us-west-2.amazonaws.com/44+second+flute+trill+-+world+record+lol.mp3" id='trill-audio' class='hidden'></audio>
-                            <div class="container" id="login-div">
-                                    <form id="login-form">
-                                    <label for="username"><b>Username</b></label>
-                                    <input type="text" id="username" placeholder="Enter Username" name="username" required>
-                            
-                                    <label for="psw"><b>Password</b></label>
-                                    <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
-                            
-                                    <button type="submit" id="signup">Signup</button>
-                                    <button type="submit" id="login">Login</button>
-                                </form>
+                        <!-- Game Play -->
+                        <div id='game-div' class='container-fluid text-center'>
+                            <div class='row justify-content-center'>
+                                <div>
+                                    <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg'>
                                 </div>
+                            </div>
+                            <div class=row>
+                                <div class='col-lg'>
+                                    <p id='question-content'> Question </p>
+                                </div>
+                            </div>
+                            <div class=row>
+                                <div class='col-lg border'>
+                                    <p class='answer-content'>Answer</p>
+                                </div>
+                                <div class='col-lg border'>
+                                    <p class='answer-content'>Answer</p>
+                                </div>
+                                <div class='col-lg border'>
+                                    <p class='answer-content'>Answer</p>
+                                </div>
+                                <div class='col-lg border'>
+                                    <p class='answer-content'>Answer</p>
+                                </div>
+                            </div>                           
+                        </div>
+                        <!-- Log In/Sign Up -->
+                        <div class="container hidden" id="login-div">
+                            <form id="login-form">
+                                <label for="username"><b>Username</b></label>
+                                <input type="text" id="username" placeholder="Enter Username" name="username" required>
+                        
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
+                        
+                                <button type="submit" id="signup">Signup</button>
+                                <button type="submit" id="login">Login</button>
+                            </form>
+                        </div>   
                     </div>
                 </div>
-            </div>
-            </div>
+           
         </div>
     </div>
-        <script src="main.js"></script>                        
+    <script src="main.js"></script>                        
     </body>
 </html>

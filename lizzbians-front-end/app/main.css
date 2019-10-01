@@ -23,6 +23,11 @@
 #menu-toggle{
     transition:all .3s;
     font-size:2em;
+    position: fixed;
+    top: 13px;
+    left: 13px;
+    z-index: 5000000;
+    background-color: white
 }
 /* Change the width of the sidebar to display it*/
 #wrapper.menuDisplayed #sidebar-wrapper{
@@ -86,4 +91,12 @@ table {
 
 .choice-image, .choice-button {
     width: 75%;
+}
+
+#inner-content {
+    margin-top: 10px;
+}
+
+#question-image {
+    width: 50%
 }
