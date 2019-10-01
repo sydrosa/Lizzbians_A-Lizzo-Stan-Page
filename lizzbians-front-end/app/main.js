@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const themeButton = document.getElementById('theme')
     const leaderboardButton = document.getElementById('leaderboard')
     const innerContentWrapper = document.getElementById('inner-content')
+    const trillAudio = document.getElementById('trill-audio')
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
@@ -59,7 +60,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             })
         })
     }
-
 
     userLogIn();
     userSignUp();
@@ -129,9 +129,6 @@ function renderLeaderTables(gameTypeDiv, type) {
     scoresHeaderRow.appendChild(scoreHeader)
 }
 
-// On Page Load Functions
-$(document).ready(function(){
-
     // Build Leaderboard
     function renderLeaderboard(type) {
         fetch(`http://localhost:3000/games/${type}`)
@@ -181,6 +178,14 @@ $(document).ready(function(){
         renderLeaderboard('speed')
         renderLeaderboard('regular')
     })
+
+    const trillButton = document.getElementById('trill-button')
+    trillButton.addEventListener('mousedown', (event) => {
+        trillAudio.play()
+    })
+
+    trillButton.addEventListener('mouseup', (event) => {
+        trillAudio.pause()
+    })
 });
       
-});
