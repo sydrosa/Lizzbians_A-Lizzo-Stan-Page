@@ -12,26 +12,26 @@
     align-items:center;
 }
   
-  /* Main Content */
-  #page-content-wrapper{
+/* Main Content */
+#page-content-wrapper{
     width: 100%;	
     position: absolute;
     padding:15px;
-      transition:all .5s;
-  }
-  
-  #menu-toggle{
-      transition:all .3s;
-      font-size:2em;
-  }
-  /* Change the width of the sidebar to display it*/
-  #wrapper.menuDisplayed #sidebar-wrapper{
-    width: 100px;
-  }
-  
-  #wrapper.menuDisplayed #page-content-wrapper{
-    padding-left:100px;
-  }
+    transition:all .5s;
+}
+
+#menu-toggle{
+    transition:all .3s;
+    font-size:2em;
+}
+/* Change the width of the sidebar to display it*/
+#wrapper.menuDisplayed #sidebar-wrapper{
+    width: 100px;   
+}
+
+#wrapper.menuDisplayed #page-content-wrapper{
+    padding-left:100px; 
+}
   
   /* Sidebar styling */
 .sidebar-nav{
@@ -64,6 +64,7 @@
     background: #f5ceed !important; 
 }
 
+/* Change Text Color for Light Theme */
 .light-theme > ul > li > ul > li > a, .light-theme > ul > li > a {
     color: #290421 !important;
 }

@@ -54,42 +54,45 @@ function renderLeaderTables(gameTypeDiv, type) {
     scoresHeaderRow.appendChild(scoreHeader)
 }
 
-// Build Leaderboard
-function renderLeaderboard(wrapper, type) {
-    fetch(`http://localhost:3000/games/${type}`)
-    .then(resp => resp.json())
-    .then(resp => {
-        console.log(resp)
-        const scoresDiv = document.createElement('div')
-        wrapper.appendChild(scoresDiv)
-        renderLeaderTables(scoresDiv, type)
-        const thisTable = document.getElementById(`${type}`)
-        if(resp.length === 0) {
-            const noScores = document.createElement('p')
-            noScores.innerText = 'There are no Scores yet. Play?'
-            scoresDiv.appendChild(noScores)
-        } else {
-            for(let i = 0; i < resp.length; i++) {
-                const thisRow = document.createElement('tr')
-                thisTable.appendChild(thisRow)
-                
-                const myName = document.createElement('td')
-                myName.innerText = resp[i].user.username
-                thisRow.appendChild(myName)
-
-                const myScore = document.createElement('td')
-                myScore.innerText = resp[i].score
-                thisRow.appendChild(myScore)
-            }
-        }
-    })
-}
-
 // On Page Load Functions
 $(document).ready(function(){
+
     const themeButton = document.getElementById('theme')
     const leaderboardButton = document.getElementById('leaderboard')
     const innerContentWrapper = document.getElementById('inner-content')
+
+    // Build Leaderboard
+    function renderLeaderboard(type) {
+        fetch(`http://localhost:3000/games/${type}`)
+        .then(resp => resp.json())
+        .then(resp => {
+
+            const scoresDiv = document.createElement('div')
+            innerContentWrapper.appendChild(scoresDiv)
+            renderLeaderTables(scoresDiv, type)
+
+            const thisTable = document.getElementById(`${type}`)
+            
+            if(resp.length === 0) {
+                const noScores = document.createElement('p')
+                noScores.innerText = 'There are no Scores yet. Play?'
+                scoresDiv.appendChild(noScores)
+            } else {
+                for(let i = 0; i < resp.length; i++) {
+                    const thisRow = document.createElement('tr')
+                    thisTable.appendChild(thisRow)
+                    
+                    const myName = document.createElement('td')
+                    myName.innerText = resp[i].user.username
+                    thisRow.appendChild(myName)
+
+                    const myScore = document.createElement('td')
+                    myScore.innerText = resp[i].score
+                    thisRow.appendChild(myScore)
+                }
+            }
+        })
+    }
     
     $("#menu-toggle").click(function(event){
         event.preventDefault()
@@ -104,13 +107,8 @@ $(document).ready(function(){
     leaderboardButton.addEventListener('click', (event) => {
         console.log('click')
         clearInnerContent(innerContentWrapper)
-        renderLeaderboard(innerContentWrapper, 'speed')
-        renderLeaderboard(innerContentWrapper, 'regular')
+        renderLeaderboard('speed')
+        renderLeaderboard('regular')
     })
-
-
-
-
-
 });
       
