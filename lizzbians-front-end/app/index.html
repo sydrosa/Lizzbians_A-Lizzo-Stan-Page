@@ -80,7 +80,8 @@
                             </div>
                         </div>
                         <!-- Game Play -->
-                        <div id='game-div' class='container-fluid text-center'>
+                        <div id='game-div' class='container-fluid text-center hidden'>
+                            <audio controls src="" id='question-audio' class='hidden'></audio>
                             <div class='row justify-content-center'>
                                 <div>
                                     <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg'>
@@ -107,7 +108,7 @@
                             </div>                           
                         </div>
                         <!-- Log In/Sign Up -->
-                        <div class="container hidden" id="login-div">
+                        <div class="container" id="login-div">
                             <form id="login-form">
                                 <label for="username"><b>Username</b></label>
                                 <input type="text" id="username" placeholder="Enter Username" name="username" required>
