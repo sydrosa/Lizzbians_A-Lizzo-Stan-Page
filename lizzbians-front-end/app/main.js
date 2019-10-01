@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    const loginForm = document.getElementById('login-form')
     const signupButton = document.getElementById('signup')
     const loginButton = document.getElementById('login')
     const usernameField = document.getElementById('username')
-    const passwordField = document.getElementById('password')
     const userLoginURL = `http://localhost:3000/sessions/`
     const userCreate = `http://localhost:3000/users`
     const themeButton = document.getElementById('theme')
@@ -63,6 +61,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     userLogIn();
     userSignUp();
+
+
     
 // Handling Errors
 function handleErrors(response) {
