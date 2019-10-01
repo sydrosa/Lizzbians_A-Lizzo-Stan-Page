@@ -110,5 +110,16 @@ $(document).ready(function(){
         renderLeaderboard('speed')
         renderLeaderboard('regular')
     })
+
+    const trillButton = document.getElementById('trill-button')
+    trillButton.addEventListener('mousedown', (event) => {
+        const trillAudio = document.getElementById('trill-audio')
+        trillAudio.play()
+    })
+
+    trillButton.addEventListener('mouseup', (event) => {
+        const trillAudio = document.getElementById('trill-audio')
+        trillAudio.pause()
+    })
 });
       

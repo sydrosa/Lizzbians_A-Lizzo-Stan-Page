@@ -76,3 +76,14 @@
 table {
     width: 100%
 }
+
+#trill-button {
+    border-radius: 100%;
+    position: fixed;
+    right: 5%;
+    bottom: 5%
+}
+
+.choice-image, .choice-button {
+    width: 75%;
+}
