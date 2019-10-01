@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   resources :answers, only: [:show]
   resources :sessions, only: [:new, :create, :delete]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+
+  get '/games/:game_type', to: 'games#index'
+
 end
