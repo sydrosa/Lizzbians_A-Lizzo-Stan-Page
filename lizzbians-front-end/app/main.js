@@ -1,3 +1,78 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+    const loginForm = document.getElementById('login-form')
+    const signupButton = document.getElementById('signup')
+    const loginButton = document.getElementById('login')
+    const usernameField = document.getElementById('username')
+    const passwordField = document.getElementById('password')
+    const userLoginURL = `http://localhost:3000/sessions/`
+    const userCreate = `http://localhost:3000/users`
+    const themeButton = document.getElementById('theme')
+    const leaderboardButton = document.getElementById('leaderboard')
+    const innerContentWrapper = document.getElementById('inner-content')
+
+    function userLogIn() {
+        loginButton.addEventListener('click', (event) => {
+            event.preventDefault()
+            let username = usernameField.value 
+            fetch(userLoginURL, {
+                method: 'POST',
+                body: JSON.stringify ({
+                    username: username
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(handleErrors)
+
+            .then (response => {
+                clearInnerContent(innerContentWrapper);
+            })
+            .catch(function (error){
+                console.log(`this doesn't work`, error);
+            })
+        })
+    };
+
+    function userSignUp() {
+        signupButton.addEventListener('click', (event) => {
+            event.preventDefault()
+            let username = usernameField.value
+            fetch(userCreate, {
+                method: 'POST',
+                body: JSON.stringify ({
+                    username: username
+                }),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(handleErrors)
+
+            .then (response => {
+                clearInnerContent(innerContentWrapper);
+            })
+            .catch(function (error){
+                console.log(`this doesn't work`, error);
+            })
+        })
+    }
+
+
+    userLogIn();
+    userSignUp();
+    
+// Handling Errors
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response.json();
+}
+
+
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
@@ -56,10 +131,6 @@ function renderLeaderTables(gameTypeDiv, type) {
 
 // On Page Load Functions
 $(document).ready(function(){
-
-    const themeButton = document.getElementById('theme')
-    const leaderboardButton = document.getElementById('leaderboard')
-    const innerContentWrapper = document.getElementById('inner-content')
 
     // Build Leaderboard
     function renderLeaderboard(type) {
@@ -123,3 +194,4 @@ $(document).ready(function(){
     })
 });
       
+});
