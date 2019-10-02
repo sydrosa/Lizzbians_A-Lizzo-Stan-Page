@@ -1,3 +1,7 @@
+const emptyArray = []
+let ticker;
+let score;
+
 var shuffle = function (array) {
 
 	var currentIndex = array.length;
@@ -32,7 +36,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
     
     function displayQuestion() {
-        console.log('display')
+        countDownTimer();
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
         const answerContentButtons = document.getElementsByClassName('answer-content')
@@ -56,7 +60,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
-                console.log(thisAnswerId)
+                let scoreKeeper = document.getElementById('score-goes-here')
+                clearInterval(ticker)
+    
                 fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
                 .then(resp => resp.json())
                 .then(resp => {
@@ -64,6 +70,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         let thisAnswerButton = document.getElementById(resp[i].id)
                         if(resp[i].is_correct === true) {
                             if(parseInt(thisAnswerId) === resp[i].id) {
+                                let newScore = score + 1;
+                                emptyArray.push(newScore)
+                                const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
+                                let userScore = sum(emptyArray)
+                                console.log(userScore)
+                                scoreKeeper.innerHTML = userScore
                                 console.log('Correct Answer')
                             }
                             thisAnswerButton.classList.add('green')
@@ -73,9 +85,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             thisAnswerButton.classList.add('disabled')
                         }
                     }
-                })
-                .then(function() {
-                    // do the score things
                 })
                 .then(function() {
                     setTimeout(displayQuestion, 2000)
@@ -89,4 +98,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
         displayQuestion()
     })
 
+    
+    
 })
+        function countDownTimer() {
+            console.log(`I'm running this many times`)
+            let timer = document.getElementById('time-goes-here')
+            let row = document.getElementById('answers-row')
+            // let emptyArray = []
+            score = 10;
+            ticker = setInterval(function () {
+                timer.innerHTML = score;
+                if (score === 0) {
+                    clearInterval(ticker);
+                }
+                else {
+                    score--;
+                }
+            }, 1000);
+            
+            
+            
+        };
