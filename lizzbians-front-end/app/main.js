@@ -10,11 +10,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const leaderboardButton = document.getElementById('leaderboard')
     const innerContentWrapper = document.getElementById('inner-content')
     const trillAudio = document.getElementById('trill-audio')
+    const byeBitch = document.getElementById('delete')
+    let username;
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
             event.preventDefault()
-            let username = usernameField.value 
+            username = usernameField.value 
+            console.log(username)
             fetch(userLoginURL, {
                 method: 'POST',
                 body: JSON.stringify ({
@@ -39,7 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function userSignUp() {
         signupButton.addEventListener('click', (event) => {
             event.preventDefault()
-            let username = usernameField.value
+            username = usernameField.value
             fetch(userCreate, {
                 method: 'POST',
                 body: JSON.stringify ({
@@ -60,9 +63,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
             })
         })
     }
+//reloads page to sign user out --> we should put this into a main menu function that runs all menu functions <--
+    function userSignOut() {
+        byeBitch.addEventListener('click', (event) => {
+            document.location.reload(true)
+        })
+    }
 
     userLogIn();
     userSignUp();
+    userSignOut();
+    
     
 // Handling Errors
 function handleErrors(response) {
