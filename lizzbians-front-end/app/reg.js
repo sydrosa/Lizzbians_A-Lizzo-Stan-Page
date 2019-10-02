@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function displayQuestion() {
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
-        const answerContentButtons = document.getElementsByClassName('answer-content')
+        const answerContentDivs = document.getElementsByClassName('answer-content')
         const thisQuestion = questions[questions.length -1]
         gameDiv.classList.remove('hidden')
     
@@ -58,28 +58,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     testButton.addEventListener('click', (event) => {
-        // clearInnerContent(innerContentWrapper)
         displayQuestion()
     })
 
-<<<<<<< HEAD
- 
-    function countDownTimer() {
-        const timer = document.getElementById('time-goes-here')
-        var i = 10;
-        var ticker = setInterval(function () {
-            timer.innerHTML = i;
-            if (i === 0) {
-                clearInterval(ticker);
-            }
-            else   {
-                    i--;
-                    }
-                }, 1000);
-    };
 
-    countDownTimer();
-
-=======
->>>>>>> origin
 })
