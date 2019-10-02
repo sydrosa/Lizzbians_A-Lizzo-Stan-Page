@@ -63,10 +63,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
         displayQuestion()
     })
 
-
  
+    function countDownTimer() {
+        const timer = document.getElementById('time-goes-here')
+        var i = 10;
+        var ticker = setInterval(function () {
+            timer.innerHTML = i;
+            if (i === 0) {
+                clearInterval(ticker);
+            }
+            else   {
+                    i--;
+                    }
+                }, 1000);
+    };
 
-
-
+    countDownTimer();
 
 })

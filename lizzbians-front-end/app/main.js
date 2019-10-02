@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loginButton.addEventListener('click', (event) => {
             event.preventDefault()
             username = usernameField.value 
-            console.log(username)
             fetch(userLoginURL, {
                 method: 'POST',
                 body: JSON.stringify ({
