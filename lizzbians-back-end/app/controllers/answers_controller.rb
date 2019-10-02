@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
     def show
-        answer = Answer.find_by(id: params[:id])
-        render json: answer, only: [:is_correct]
+        question = Question.find_by(id: params[:id])
+        render json: question.answers, only: [:is_correct, :id]
     end
 end

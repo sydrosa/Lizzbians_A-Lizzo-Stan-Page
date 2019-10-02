@@ -108,3 +108,11 @@ table {
 .answer-content {
     width: 100%
 }
+
+button.red {
+    background-color: red;
+}
+
+button.green {
+    background-color: green;
+}
