@@ -79,6 +79,8 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Test  -->
+                        <button id='game-test'>Game Test</button>
                         <!-- Game Play -->
                         <div id='game-div' class='container-fluid text-center hidden'>
                             <audio controls src="" id='question-audio' class='hidden'></audio>
@@ -92,7 +94,7 @@
                                     <p id='question-content'> Question </p>
                                 </div>
                             </div>
-                            <div class=row>
+                            <div id='answers-row' class=row>
                                 <div class='col-lg border'>
                                     <p class='answer-content'>Answer</p>
                                 </div>
@@ -108,7 +110,7 @@
                             </div>                           
                         </div>
                         <!-- Log In/Sign Up -->
-                        <div class="container" id="login-div">
+                        <div class="container hidden" id="login-div">
                             <form id="login-form">
                                 <label for="username"><b>Username</b></label>
                                 <input type="text" id="username" placeholder="Enter Username" name="username" required>
@@ -125,6 +127,7 @@
            
         </div>
     </div>
-    <script src="main.js"></script>                        
+    <script src="main.js"></script>    
+    <script src="reg.js"></script>                     
     </body>
 </html>
