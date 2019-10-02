@@ -1,3 +1,12 @@
+// import clearInnerContent from 'main.js'
+
+// Remove Content From Inner-Conent Div
+const innerContentWrapper = document.getElementById('inner-content')
+
+function clearInnerContent(innerContentWrapper) {
+    innerContentWrapper.innerHTML = ''
+}
+
 var shuffle = function (array) {
 
 	var currentIndex = array.length;
@@ -20,6 +29,7 @@ var shuffle = function (array) {
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const playTrivia = document.getElementById('trivia')
     const testButton = document.getElementById('game-test')
     let questions
 
@@ -32,12 +42,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
     
     function displayQuestion() {
-        console.log('display')
+        const loginDiv = document.getElementById('login-div')
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
         const answerContentButtons = document.getElementsByClassName('answer-content')
         const thisQuestion = questions.pop()
         gameDiv.classList.remove('hidden')
+        loginDiv.classList.add('hidden')
 
         for (element of answerContentButtons) {
             element.classList.remove('red')
@@ -69,6 +80,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                             thisAnswerButton.classList.add('green')
                             thisAnswerButton.classList.add('disabled')
                         } else {
+                            if(parseInt(thisAnswerId) === resp[i].id) {
+                                console.log('Incorrect Answer')
+                            }
                             thisAnswerButton.classList.add('red')
                             thisAnswerButton.classList.add('disabled')
                         }
@@ -80,12 +94,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 .then(function() {
                     setTimeout(displayQuestion, 2000)
                 })
-            }, {once: true})
+            })
         }
     }
 
-    testButton.addEventListener('click', (event) => {
-        // clearInnerContent(innerContentWrapper)
+    playTrivia.addEventListener('click', (event) => {
+        clearInnerContent(innerContentWrapper)
         displayQuestion()
     })
 

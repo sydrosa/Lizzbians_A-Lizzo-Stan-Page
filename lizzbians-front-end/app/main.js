@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const loginForm = document.getElementById('login-form')
     const signupButton = document.getElementById('signup')
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const innerContentWrapper = document.getElementById('inner-content')
     const trillAudio = document.getElementById('trill-audio')
     const byeBitch = document.getElementById('delete')
+    const staticElements = document.getElementById('static-elements').children
     let username;
 
     function userLogIn() {
@@ -83,7 +86,6 @@ function handleErrors(response) {
     return response.json();
 }
 
-
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
@@ -142,6 +144,9 @@ function renderLeaderTables(gameTypeDiv, type) {
 
     // Build Leaderboard
     function renderLeaderboard(type) {
+        for(element of staticElements) {
+            element.classList.add('hidden')
+        }
         fetch(`http://localhost:3000/games/${type}`)
         .then(resp => resp.json())
         .then(resp => {
