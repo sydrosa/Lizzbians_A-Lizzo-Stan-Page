@@ -1,8 +1,6 @@
-// import clearInnerContent from 'main.js'
+// const { renderLeaderboard } = require("./helper_functions.js")
 
 // Remove Content From Inner-Conent Div
-const innerContentWrapper = document.getElementById('inner-content')
-
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
 }
@@ -25,12 +23,89 @@ var shuffle = function (array) {
 	}
 
 	return array;
-
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const innerContentWrapper = document.getElementById('inner-content')
     const playTrivia = document.getElementById('trivia')
-    const testButton = document.getElementById('game-test')
+    const gameChoice = document.getElementById('choose-game-type')
+    const loginDiv = document.getElementById('login-div')
+    const gameDiv = document.getElementById('game-div')
+    const questionContent = document.getElementById('question-content')
+    const answerContentButtons = document.getElementsByClassName('answer-content')
+    const regularGameButton = document.getElementById('regular-game-button')
+    let currentGameWrongAnswers = 0
+
+// This is Horrible CodE!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+const staticElements = document.getElementById('static-elements').children
+
+function hideStaticElements() {
+    for(element of staticElements) {
+        element.classList.add('hidden')
+    }
+}
+
+// Leaderboard Table Helper Methods
+function renderLeaderTables(gameTypeDiv, type) {
+    const scoresTitle = document.createElement('h2')
+    scoresTitle.innerText = `${type} Scores Table`
+    gameTypeDiv.appendChild(scoresTitle)
+
+    const scoresTable = document.createElement('table')
+    scoresTable.setAttribute('id', type)
+    gameTypeDiv.appendChild(scoresTable)
+
+    const scoresHeaderRow = document.createElement('tr')
+    scoresTable.appendChild(scoresHeaderRow)
+
+    const scoresNameHeader = document.createElement('th')
+    scoresNameHeader.innerText = 'Name'
+    scoresHeaderRow.appendChild(scoresNameHeader)
+
+    const scoreHeader = document.createElement('th')
+    scoreHeader.innerText = 'Score'
+    scoresHeaderRow.appendChild(scoreHeader)
+}
+
+// Build Leaderboard 
+function renderLeaderboard(type) {
+
+    hideStaticElements()
+
+    fetch(`http://localhost:3000/games/${type}`)
+    .then(resp => resp.json())
+    .then(resp => {
+
+        const scoresDiv = document.createElement('div')
+        innerContentWrapper.appendChild(scoresDiv)
+        renderLeaderTables(scoresDiv, type)
+
+        const thisTable = document.getElementById(`${type}`)
+        
+        if(resp.length === 0) {
+            const noScores = document.createElement('p')
+            noScores.innerText = 'There are no Scores yet. Play?'
+            scoresDiv.appendChild(noScores)
+        } else {
+            for(let i = 0; i < resp.length; i++) {
+                const thisRow = document.createElement('tr')
+                thisTable.appendChild(thisRow)
+                
+                const myName = document.createElement('td')
+                myName.innerText = resp[i].user.username
+                thisRow.appendChild(myName)
+
+                const myScore = document.createElement('td')
+                myScore.innerText = resp[i].score
+                thisRow.appendChild(myScore)
+            }
+        }
+    })
+}
+
+// This is Horrible Code!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     let questions
 
     const questionsURL = 'http://localhost:3000/questions'
@@ -41,11 +116,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         questions = shuffle(resp)
     })
     
-    function displayQuestion() {
-        const loginDiv = document.getElementById('login-div')
-        const gameDiv = document.getElementById('game-div')
-        const questionContent = document.getElementById('question-content')
-        const answerContentButtons = document.getElementsByClassName('answer-content')
+    function displayQuestion(gameType) {
         const thisQuestion = questions.pop()
         gameDiv.classList.remove('hidden')
         loginDiv.classList.add('hidden')
@@ -67,7 +138,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
-                console.log(thisAnswerId)
                 fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
                 .then(resp => resp.json())
                 .then(resp => {
@@ -82,6 +152,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         } else {
                             if(parseInt(thisAnswerId) === resp[i].id) {
                                 console.log('Incorrect Answer')
+                                currentGameWrongAnswers += 1
                             }
                             thisAnswerButton.classList.add('red')
                             thisAnswerButton.classList.add('disabled')
@@ -92,15 +163,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     // do the score things
                 })
                 .then(function() {
-                    setTimeout(displayQuestion, 2000)
+                    if(currentGameWrongAnswers < 3) {
+                        setTimeout(displayQuestion, 2000)
+                    } else {
+                        console.log('done')
+                        renderLeaderboard('regular')
+                    }
                 })
             })
         }
     }
 
+    function toggleGameChoice() {
+        gameChoice.classList.toggle('hidden')
+    }
+
+    function startRegularGame() {
+        currentGameWrongAnswers = 0
+        displayQuestion('regular')
+
+    }
+
     playTrivia.addEventListener('click', (event) => {
         clearInnerContent(innerContentWrapper)
-        displayQuestion()
+        toggleGameChoice()
+        gameDiv.classList.add('hidden')
+        loginDiv.classList.add('hidden')
+    })
+
+    regularGameButton.addEventListener('click', (event) => {
+        toggleGameChoice()
+        startRegularGame()
+        
     })
 
 })
