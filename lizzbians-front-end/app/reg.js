@@ -1,5 +1,9 @@
     const timer = document.getElementById('time-goes-here')
     const points = document.getElementById('points-go-here')
+    const questionsURL = 'http://localhost:3000/questions'
+    const row = document.getElementById('row')
+    let questions;
+    let answers;
 
     countDownTimer();
     
@@ -18,19 +22,33 @@
                     }
                 }, 1000);
 
+        
+
     };
 document.addEventListener('DOMContentLoaded', (event) => {
 
-let questions
-
 function getQuestions() {
-    const questionsURL = 'http://localhost:3000/questions'
     fetch(questionsURL)
     .then(resp => resp.json())
     .then(resp => {
         questions = resp
+        displayQuestion();
     })
 }
+
+function getAnswers() {
+
+    fetch(questionsURL)
+    .then(resp => resp.json())
+    .then(resp => {
+        answers = resp
+        for (const question of resp) {
+            answers = question.answers
+            console.log(answers)
+            }
+            displayAnswers();
+        })
+    }
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -46,11 +64,31 @@ function displayQuestion() {
     const answerContentPs = document.getElementsByClassName('answer-content')
     gameDiv.classList.remove('hidden')
 
-    questionContent.innerText = questions[questions.length -1].content
-
-
+    for (const content of questions) {
+        
+        let innerQuestionContent = content.content
+        questionContent.innerText = innerQuestionContent
+        // questionContent.innerText = questions[questions.length -1].content
+    }
 
 }
+
+function displayAnswers() {
+    for (const content of answers) {
+        const div = document.createElement('div')
+        div.setAttribute('class', 'col-lg border')
+        const para = document.createElement('p')
+        para.setAttribute('class', 'answer-content')
+        let innerAnswerContent = content.content
+        para.innerText = innerAnswerContent
+        div.appendChild(para)
+        row.appendChild(div)
+    }
+}
+
+getQuestions();
+getAnswers();
+// displayQuestion();
 
 
 
