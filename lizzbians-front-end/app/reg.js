@@ -62,4 +62,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
         displayQuestion()
     })
 
+    function countDownTimer() {
+        let timer = document.getElementById('time-goes-here')
+        let row = document.getElementById('answers-row')
+        let emptyArray = []
+        var i = 10;
+        var ticker = setInterval(function () {
+            timer.innerHTML = i;
+            if (i === 0) {
+                clearInterval(ticker);
+            }
+            else   {
+                    i--;
+                    }
+                }, 1000)
+                ;
+        row.addEventListener('click', (event) => {
+            let scoreKeeper = document.getElementById('score-goes-here')
+            clearInterval(ticker)
+            let newScore = i + 1;
+            // scoreKeeper.innerHTML = newScore;
+            emptyArray.push(newScore)
+            const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
+            let userScore = sum(emptyArray)
+            scoreKeeper.innerHTML = userScore
+            console.log(userScore)
+
+        })
+        
+    };
+
+    countDownTimer();
+    
 })
