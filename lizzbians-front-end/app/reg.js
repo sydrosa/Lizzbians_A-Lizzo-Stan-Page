@@ -16,7 +16,6 @@ var shuffle = function (array) {
 	}
 
 	return array;
-
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -50,8 +49,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             thisDiv.setAttribute('id', myAnswers[i].id)
 
             thisDiv.addEventListener('click', (event) => {
-                
-                console.log(this)
+                console.log(event.target)
                 fetch(`http://localhost:3000/answers/${event.target.id}`)
                 .then(resp => resp.json())
                 .then(resp => console.log(resp))
