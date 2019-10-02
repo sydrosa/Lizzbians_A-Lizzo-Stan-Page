@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function displayQuestion() {
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
-        const answerContentDivs = document.getElementsByClassName('answer-content')
+        const answerContentButtons = document.getElementsByClassName('answer-content')
         const thisQuestion = questions[questions.length -1]
         gameDiv.classList.remove('hidden')
     
@@ -44,14 +44,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         for(let i = 0; i < thisQuestion.answers.length; i++) {
             const myAnswers = thisQuestion.answers
             console.log(myAnswers)
-            const thisDiv = answerContentDivs[i].parentNode
-            answerContentDivs[i].innerText = myAnswers[i].content
+            const thisButton = answerContentButtons[i]
+            answerContentButtons[i].innerText = myAnswers[i].content
             console.log(thisQuestion.answers[i])
-            thisDiv.setAttribute('id', myAnswers[i].id)
+            thisButton.setAttribute('id', myAnswers[i].id)
 
-            thisDiv.addEventListener('click', (event) => {
-                
-                console.log(this)
+            thisButton.addEventListener('click', (event) => {
                 fetch(`http://localhost:3000/answers/${event.target.id}`)
                 .then(resp => resp.json())
                 .then(resp => console.log(resp))
@@ -60,13 +58,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 
     testButton.addEventListener('click', (event) => {
+        // clearInnerContent(innerContentWrapper)
         displayQuestion()
     })
-
-
- 
-
-
-
 
 })
