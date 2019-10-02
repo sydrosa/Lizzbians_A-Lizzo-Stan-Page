@@ -104,3 +104,7 @@ table {
 #game-test {
     margin-left: 400px;
 }
+
+.answer-content {
+    width: 100%
+}
