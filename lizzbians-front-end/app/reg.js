@@ -3,6 +3,7 @@ let ticker;
 let score;
 let userScore;
 let questions;
+let newScore;
 
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
@@ -126,7 +127,7 @@ function renderLeaderboard(type) {
                 let thisAnswerButton = document.getElementById(resp[i].id)
                 if(resp[i].is_correct === true) {
                     if(parseInt(thisAnswerId) === resp[i].id) {
-                        let newScore = 0
+                        newScore = 0
                         newScore = (score + 1) * pointsMultiplier;
 
                         emptyArray.push(newScore)
@@ -150,7 +151,11 @@ function renderLeaderboard(type) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
                 setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+                recordHighScore();
             }
+        })
+        .then(function() {
+            renderLeaderboard('regular')
         })
     }
 
@@ -235,6 +240,32 @@ function renderLeaderboard(type) {
         gameDiv.classList.add('hidden')
         loginDiv.classList.add('hidden')
     })
+
+    // end of game logic
+function recordHighScore() {
+    const createGameURL = `http://localhost:3000/games`
+    const wrapper = document.getElementById('page-content-wrapper')
+    username = wrapper.dataset.username
+    const scoreScreenGrab= document.getElementById('score-goes-here').innerHTML
+    console.log(typeof scoreScreenGrab)
+    fetch(createGameURL, {  
+        method: 'POST',  
+        
+        headers: {  
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'  
+          },  
+          
+        body: JSON.stringify ({
+            username: username,
+            game_type: 'regular',
+            score: scoreScreenGrab
+        })
+    })
+    .then(function (data) {  
+      console.log('Request success: ', data);  
+    })  
+}
 
     regularGameButton.addEventListener('click', (event) => {
         toggleGameChoice()
