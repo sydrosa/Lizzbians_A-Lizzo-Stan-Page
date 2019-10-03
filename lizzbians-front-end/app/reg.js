@@ -4,6 +4,9 @@
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
 }
+const emptyArray = []
+let ticker;
+let score;
 
 var shuffle = function (array) {
 
@@ -117,6 +120,10 @@ function renderLeaderboard(type) {
     })
     
     function displayQuestion(gameType) {
+        countDownTimer();
+        const gameDiv = document.getElementById('game-div')
+        const questionContent = document.getElementById('question-content')
+        const answerContentButtons = document.getElementsByClassName('answer-content')
         const thisQuestion = questions.pop()
         gameDiv.classList.remove('hidden')
         loginDiv.classList.add('hidden')
@@ -138,6 +145,9 @@ function renderLeaderboard(type) {
 
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
+                let scoreKeeper = document.getElementById('score-goes-here')
+                clearInterval(ticker)
+    
                 fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
                 .then(resp => resp.json())
                 .then(resp => {
@@ -145,6 +155,12 @@ function renderLeaderboard(type) {
                         let thisAnswerButton = document.getElementById(resp[i].id)
                         if(resp[i].is_correct === true) {
                             if(parseInt(thisAnswerId) === resp[i].id) {
+                                let newScore = score + 1;
+                                emptyArray.push(newScore)
+                                const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
+                                let userScore = sum(emptyArray)
+                                console.log(userScore)
+                                scoreKeeper.innerHTML = userScore
                                 console.log('Correct Answer')
                             }
                             thisAnswerButton.classList.add('green')
@@ -197,4 +213,25 @@ function renderLeaderboard(type) {
         
     })
 
+    
+    
 })
+        function countDownTimer() {
+            console.log(`I'm running this many times`)
+            let timer = document.getElementById('time-goes-here')
+            let row = document.getElementById('answers-row')
+            // let emptyArray = []
+            score = 10;
+            ticker = setInterval(function () {
+                timer.innerHTML = score;
+                if (score === 0) {
+                    clearInterval(ticker);
+                }
+                else {
+                    score--;
+                }
+            }, 1000);
+            
+            
+            
+        };
