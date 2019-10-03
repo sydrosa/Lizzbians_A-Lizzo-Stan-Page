@@ -3,6 +3,8 @@ let ticker;
 let score;
 let userScore;
 let questions;
+const questionsURL = 'http://localhost:3000/questions'
+
 
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
@@ -39,8 +41,8 @@ function questionFetch() {
     })
 }
 
+
 questionFetch()
-    
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // Set Variables
@@ -128,7 +130,6 @@ function renderLeaderboard(type) {
 
 // This is Horrible Code!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const questionsURL = 'http://localhost:3000/questions'
 
     // Fetches Correct and Incorrect andswers and Calculates Score
     function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers) {
