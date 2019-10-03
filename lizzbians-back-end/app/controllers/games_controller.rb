@@ -7,11 +7,13 @@ class GamesController < ApplicationController
     end
 
     def create
-        game = Game.create(game_params)
-        render json: { 'yay!'}
+        puts params
+        user = User.find_by(username: params[:username])
+        game = Game.create(user_id: user.id, score: params[:score], game_type: params[:game_type])
+        render json: {status: 'yay!'}
     end
 
-    def game_params
-        params.require(:game).permit(:user_id, :game_type, :score)
-    end
+    # def game_params
+    #     params.permit(:user_id, :game_type, :score)
+    # end
 end

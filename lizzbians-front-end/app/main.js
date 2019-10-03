@@ -19,13 +19,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
-            event.preventDefault()
-            username = usernameField.value 
-            console.log(username)
+            user = usernameField.value 
+            const wrapper = document.getElementById('page-content-wrapper')
+            wrapper.setAttribute('data-username', user)
+            console.log(user)
             fetch(userLoginURL, {
                 method: 'POST',
                 body: JSON.stringify ({
-                    username: username
+                    username: user
                 }),
                 headers: {
                     'Accept': 'application/json',
@@ -45,8 +46,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function userSignUp() {
         signupButton.addEventListener('click', (event) => {
-            event.preventDefault()
-            username = usernameField.value
+            username = usernameField.value 
+            const wrapper = document.getElementById('page-content-wrapper')
+            wrapper.setAttribute('data-username', username)
             fetch(userCreate, {
                 method: 'POST',
                 body: JSON.stringify ({

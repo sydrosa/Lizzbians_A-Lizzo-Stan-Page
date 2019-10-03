@@ -6,6 +6,8 @@ let emptyArray = []
 let ticker;
 let score;
 let userScore;
+let username;
+let newScore;
 
 var shuffle = function (array) {
 
@@ -121,7 +123,7 @@ function renderLeaderboard(type) {
                 let thisAnswerButton = document.getElementById(resp[i].id)
                 if(resp[i].is_correct === true) {
                     if(parseInt(thisAnswerId) === resp[i].id) {
-                        let newScore = 0
+                        newScore = 0
                         newScore = (score + 1) * pointsMultiplier;
 
                         emptyArray.push(newScore)
@@ -141,11 +143,14 @@ function renderLeaderboard(type) {
             }
         })
         .then(function() {
-            if(currentGameWrongAnswers < 3) {
+            if(currentGameWrongAnswers < 1) {
                 setTimeout(function() {displayQuestion('regular')}, 2000)
             } else {
-                renderLeaderboard('regular')
+                recordHighScore();
             }
+        })
+        .then(function() {
+            renderLeaderboard('regular')
         })
     }
 
@@ -191,8 +196,6 @@ function renderLeaderboard(type) {
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
                 clearInterval(ticker)
-                console.log('pointsMultiplier is thisButton.addEvent')
-                console.log(typeof pointsMultiplier)
                 fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier)
             })
         }
@@ -206,7 +209,6 @@ function renderLeaderboard(type) {
         emptyArray = []
         userScore = 0
         scoreKeeper.innerText = userScore
-        console.log(userScore)
         currentGameWrongAnswers = 0
         displayQuestion('regular')
     }
@@ -226,13 +228,22 @@ function renderLeaderboard(type) {
     // end of game logic
 function recordHighScore() {
     const createGameURL = `http://localhost:3000/games`
+    const wrapper = document.getElementById('page-content-wrapper')
+    username = wrapper.dataset.username
+    const scoreScreenGrab= document.getElementById('score-goes-here').innerHTML
+    console.log(typeof scoreScreenGrab)
     fetch(createGameURL, {  
         method: 'POST',  
+        
+        headers: {  
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'  
+          },  
           
-        body: JSON.stringify({
+        body: JSON.stringify ({
         username: username,
-        game_type: 'reg',
-        score:  score
+        game_type: 'regular',
+        score: scoreScreenGrab
       })
     })
     .then(function (data) {  
@@ -240,9 +251,6 @@ function recordHighScore() {
     })  
 }
 
-recordHighScore();
-
-})
     regularGameButton.addEventListener('click', (event) => {
         toggleGameChoice()
         startRegularGame() 
