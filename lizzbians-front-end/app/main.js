@@ -178,11 +178,11 @@ function renderThemeSettings(wrapper) {
     wrapper.appendChild(lightButton)   
 }
 
-function hideStaticElements() {
-    for(element of staticElements) {
-        element.classList.add('hidden')
+    function hideStaticElements() {
+        for(element of staticElements) {
+            element.classList.add('hidden')
+        }
     }
-}
 
 
     $("#menu-toggle").click(function(event){
