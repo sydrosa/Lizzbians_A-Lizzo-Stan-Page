@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
     const gameDiv = document.getElementById('game-div')
-    const questionContent = document.getElementById('question-content')
-    const answerContentButtons = document.getElementsByClassName('answer-content')
+    // const questionContent = document.getElementById('question-content')
+    // const answerContentButtons = document.getElementsByClassName('answer-content')
     const regularGameButton = document.getElementById('regular-game-button')
     const speedGameButton = document.getElementById('speed-game-button')
     const questionAudio = document.getElementById('question-audio')
@@ -132,7 +132,6 @@ function renderLeaderboard(type) {
 
 // This is Horrible Code!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     // Fetches Correct and Incorrect andswers and Calculates Score
     function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers) {
         fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
@@ -165,8 +164,7 @@ function renderLeaderboard(type) {
             if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                recordHighScore();
-                setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+                recordHighScore(gameType);
             }
         })
     }
@@ -196,7 +194,6 @@ function renderLeaderboard(type) {
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
                 clearInterval(ticker)
-                // questionAudio.pause()
                 questionAudio.src = ''
                 fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers)
             })
@@ -250,7 +247,7 @@ function renderLeaderboard(type) {
     })
 
     // end of game logic
-function recordHighScore() {
+function recordHighScore(gameType) {
     console.log('score')
     const createGameURL = `http://localhost:3000/games`
     const wrapper = document.getElementById('page-content-wrapper')
@@ -267,13 +264,16 @@ function recordHighScore() {
           
         body: JSON.stringify ({
             username: username,
-            game_type: 'regular',
+            game_type: gameType,
             score: scoreScreenGrab
         })
     })
     .then(function (data) {  
       console.log('Request success: ', data);  
     })  
+    .then(function() {
+        setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+    })
 }
 
     regularGameButton.addEventListener('click', (event) => {
@@ -297,9 +297,7 @@ function recordHighScore() {
                 if(currentGameWrongAnswers < allowedWrongAnswers) {
                     setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
-                    console.log('countdown end')
-                    console.log(score)
-                    setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+                    recordHighScore(gameType);
                     clearInterval(ticker);
                 }
             }
