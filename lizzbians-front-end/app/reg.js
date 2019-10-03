@@ -1,12 +1,15 @@
+let emptyArray = [];
+let ticker;
+let score;
+let userScore;
+let questions;
+
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
 }
-let emptyArray = []
-let ticker;
-let score;
-let userScore;
 
+// Randomize Elements in an Array
 var shuffle = function (array) {
 
 	var currentIndex = array.length;
@@ -28,6 +31,7 @@ var shuffle = function (array) {
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    // Set Variables
     const scoreKeeper = document.getElementById('score-goes-here')
     const innerContentWrapper = document.getElementById('inner-content')
     const playTrivia = document.getElementById('trivia')
@@ -83,6 +87,7 @@ function renderLeaderboard(type) {
 
         const scoresDiv = document.createElement('div')
         innerContentWrapper.appendChild(scoresDiv)
+        scoresDiv.setAttribute('class', 'container-fluid text-center')
         renderLeaderTables(scoresDiv, type)
 
         const thisTable = document.getElementById(`${type}`)
@@ -110,11 +115,10 @@ function renderLeaderboard(type) {
 
 // This is Horrible Code!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    let questions
-
     const questionsURL = 'http://localhost:3000/questions'
 
-    function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType) {
+    // Fetches Correct and Incorrect andswers and Calculates Score
+    function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers) {
         fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
         .then(resp => resp.json())
         .then(resp => {
@@ -123,7 +127,6 @@ function renderLeaderboard(type) {
                 if(resp[i].is_correct === true) {
                     if(parseInt(thisAnswerId) === resp[i].id) {
                         let newScore = 0
-                        console.log(pointsMultiplier)
                         newScore = (score + 1) * pointsMultiplier;
 
                         emptyArray.push(newScore)
@@ -143,23 +146,27 @@ function renderLeaderboard(type) {
             }
         })
         .then(function() {
-            if(currentGameWrongAnswers < 3) {
+            if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                renderLeaderboard(gameType)
+                setTimeout(function() {renderLeaderboard(gameType)}, 1000)
             }
         })
     }
 
+    // Initial Fetch to get Questions
+    function questionFetch() {
+        fetch(questionsURL)
+        .then(resp => resp.json())
+        .then(resp => {
+            questions = shuffle(resp)
+        })
+    }
 
-    fetch(questionsURL)
-    .then(resp => resp.json())
-    .then(resp => {
-        questions = shuffle(resp)
-    })
+    questionFetch()
     
+    // Displays a new Question, Sets Event Listeners for Answer Choices
     function displayQuestion(gameType) {
-        console.log(gameType)
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
         const answerContentButtons = document.getElementsByClassName('answer-content')
@@ -194,29 +201,30 @@ function renderLeaderboard(type) {
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
                 clearInterval(ticker)
-                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType)
+                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers)
             })
         }
     }
 
+    // Toggle Visibility of Game Type Choice Screen
     function toggleGameChoice() {
         gameChoice.classList.toggle('hidden')
     }
 
     function startRegularGame() {
+        questionFetch()
         emptyArray = []
         userScore = 0
         scoreKeeper.innerText = userScore
-        console.log(userScore)
         currentGameWrongAnswers = 0
         displayQuestion('regular')
     }
 
     function startSpeedGame() {
+        questionFetch()
         emptyArray = []
         userScore = 0
         scoreKeeper.innerText = userScore
-        console.log(userScore)
         currentGameWrongAnswers = 0
         displayQuestion('speed')
     }
@@ -240,7 +248,6 @@ function renderLeaderboard(type) {
 
     function countDownTimer(allowedWrongAnswers, gameType) {
         let timer = document.getElementById('time-goes-here')
-        let row = document.getElementById('answers-row')
         score = 10;
         ticker = setInterval(function () {
             timer.innerText = score;
@@ -250,7 +257,7 @@ function renderLeaderboard(type) {
                 if(currentGameWrongAnswers < allowedWrongAnswers) {
                     setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
-                    setTimeout(renderLeaderboard(gameType))
+                    setTimeout(function() {renderLeaderboard(gameType)}, 1000)
                 }
             }
             else {
