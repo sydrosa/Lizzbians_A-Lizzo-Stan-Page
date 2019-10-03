@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const questionContent = document.getElementById('question-content')
     const answerContentButtons = document.getElementsByClassName('answer-content')
     const regularGameButton = document.getElementById('regular-game-button')
+    const speedGameButton = document.getElementById('speed-game-button')
     var currentGameWrongAnswers = 0
 
 // This is Horrible CodE!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,7 +114,7 @@ function renderLeaderboard(type) {
 
     const questionsURL = 'http://localhost:3000/questions'
 
-    function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier) {
+    function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType) {
         fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
         .then(resp => resp.json())
         .then(resp => {
@@ -122,6 +123,7 @@ function renderLeaderboard(type) {
                 if(resp[i].is_correct === true) {
                     if(parseInt(thisAnswerId) === resp[i].id) {
                         let newScore = 0
+                        console.log(pointsMultiplier)
                         newScore = (score + 1) * pointsMultiplier;
 
                         emptyArray.push(newScore)
@@ -142,9 +144,9 @@ function renderLeaderboard(type) {
         })
         .then(function() {
             if(currentGameWrongAnswers < 3) {
-                setTimeout(function() {displayQuestion('regular')}, 2000)
+                setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                renderLeaderboard('regular')
+                renderLeaderboard(gameType)
             }
         })
     }
@@ -157,6 +159,7 @@ function renderLeaderboard(type) {
     })
     
     function displayQuestion(gameType) {
+        console.log(gameType)
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
         const answerContentButtons = document.getElementsByClassName('answer-content')
@@ -168,7 +171,7 @@ function renderLeaderboard(type) {
             var allowedWrongAnswers = 1
             var pointsMultiplier = 5
         }
-        countDownTimer(allowedWrongAnswers);
+        countDownTimer(allowedWrongAnswers, gameType);
         gameDiv.classList.remove('hidden')
         loginDiv.classList.add('hidden')
 
@@ -191,9 +194,7 @@ function renderLeaderboard(type) {
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
                 clearInterval(ticker)
-                console.log('pointsMultiplier is thisButton.addEvent')
-                console.log(typeof pointsMultiplier)
-                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier)
+                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType)
             })
         }
     }
@@ -212,6 +213,10 @@ function renderLeaderboard(type) {
     }
 
     function startSpeedGame() {
+        emptyArray = []
+        userScore = 0
+        scoreKeeper.innerText = userScore
+        console.log(userScore)
         currentGameWrongAnswers = 0
         displayQuestion('speed')
     }
@@ -228,7 +233,12 @@ function renderLeaderboard(type) {
         startRegularGame() 
     })
 
-    function countDownTimer(allowedWrongAnswers) {
+    speedGameButton.addEventListener('click', (event) => {
+        toggleGameChoice()
+        startSpeedGame() 
+    })
+
+    function countDownTimer(allowedWrongAnswers, gameType) {
         let timer = document.getElementById('time-goes-here')
         let row = document.getElementById('answers-row')
         score = 10;
@@ -238,9 +248,9 @@ function renderLeaderboard(type) {
                 clearInterval(ticker);
                 currentGameWrongAnswers += 1
                 if(currentGameWrongAnswers < allowedWrongAnswers) {
-                    setTimeout(function() {displayQuestion('regular')}, 1000)
+                    setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
-                    setTimeout(renderLeaderboard('regular'))
+                    setTimeout(renderLeaderboard(gameType))
                 }
             }
             else {
