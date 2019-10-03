@@ -241,10 +241,10 @@ function recordHighScore() {
           },  
           
         body: JSON.stringify ({
-        username: username,
-        game_type: 'regular',
-        score: scoreScreenGrab
-      })
+            username: username,
+            game_type: 'regular',
+            score: scoreScreenGrab
+        })
     })
     .then(function (data) {  
       console.log('Request success: ', data);  
