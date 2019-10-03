@@ -5,4 +5,13 @@ class GamesController < ApplicationController
             :user => {:only => [:username]}
             },:except => [:updated_at, :created_at])
     end
+
+    def create
+        game = Game.create(game_params)
+        render json: { 'yay!'}
+    end
+
+    def game_params
+        params.require(:game).permit(:user_id, :game_type, :score)
+    end
 end

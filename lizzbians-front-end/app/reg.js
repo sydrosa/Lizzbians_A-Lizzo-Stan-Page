@@ -89,4 +89,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
         displayQuestion()
     })
 
+    // end of game logic
+function recordHighScore() {
+    const createGameURL = `http://localhost:3000/games`
+    fetch(createGameURL, {  
+        method: 'POST',  
+          
+        body: JSON.stringify({
+        username: username,
+        game_type: 'reg',
+        score:  score
+      })
+    })
+    .then(function (data) {  
+      console.log('Request success: ', data);  
+    })  
+}
+
+recordHighScore();
+
 })
