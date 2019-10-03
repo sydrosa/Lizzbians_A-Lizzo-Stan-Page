@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const staticElements = document.getElementById('static-elements').children
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
+    const sideBar = document.getElement
     let username;
 
     function userLogIn() {
