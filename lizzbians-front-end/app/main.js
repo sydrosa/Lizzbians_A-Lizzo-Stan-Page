@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     userSignUp();
     userSignOut();
     
-    
 // Handling Errors
 function handleErrors(response) {
     if (!response.ok) {
