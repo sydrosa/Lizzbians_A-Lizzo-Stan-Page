@@ -165,12 +165,8 @@ function renderLeaderboard(type) {
             if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                console.log('fetch correct')
+                recordHighScore();
                 setTimeout(function() {renderLeaderboard(gameType)}, 1000)
-                setTimeout(function() {
-                    recordHighScore();
-                }, 2000)
-                clearInterval(ticker);
             }
         })
     }

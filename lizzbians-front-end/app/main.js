@@ -2,11 +2,9 @@
 // const { renderLeaderboard } = require("./helper_functions.js")
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const loginForm = document.getElementById('login-form')
     const signupButton = document.getElementById('signup')
     const loginButton = document.getElementById('login')
     const usernameField = document.getElementById('username')
-    const passwordField = document.getElementById('password')
     const userLoginURL = `http://localhost:3000/sessions/`
     const userCreate = `http://localhost:3000/users`
     const themeButton = document.getElementById('theme')
@@ -44,6 +42,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 gameChoice.classList.toggle('hidden')
             })
             .catch(function (error){
+                alert ("Login was unsuccsessful. Please try again!");
                 console.log(`this doesn't work`, error);
             })
         })
