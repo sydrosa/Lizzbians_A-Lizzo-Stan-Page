@@ -3,6 +3,8 @@ let ticker;
 let score;
 let userScore;
 let questions;
+const questionsURL = 'http://localhost:3000/questions'
+
 let newScore;
 
 // Remove Content From Inner-Conent Div
@@ -31,6 +33,17 @@ var shuffle = function (array) {
 	return array;
 };
 
+// Initial Fetch to get Questions
+function questionFetch() {
+    fetch(questionsURL)
+    .then(resp => resp.json())
+    .then(resp => {
+        questions = shuffle(resp)
+    })
+}
+
+questionFetch()
+
 document.addEventListener('DOMContentLoaded', (event) => {
     // Set Variables
     const scoreKeeper = document.getElementById('score-goes-here')
@@ -39,10 +52,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
     const gameDiv = document.getElementById('game-div')
-    const questionContent = document.getElementById('question-content')
-    const answerContentButtons = document.getElementsByClassName('answer-content')
+    // const questionContent = document.getElementById('question-content')
+    // const answerContentButtons = document.getElementsByClassName('answer-content')
     const regularGameButton = document.getElementById('regular-game-button')
     const speedGameButton = document.getElementById('speed-game-button')
+    const questionAudio = document.getElementById('question-audio')
     var currentGameWrongAnswers = 0
 
 // This is Horrible CodE!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,13 +93,15 @@ function renderLeaderTables(gameTypeDiv, type) {
 
 // Build Leaderboard 
 function renderLeaderboard(type) {
-
+    clearInterval(ticker);
+    console.log('fetch Leaderboard')
+    clearInnerContent(innerContentWrapper)
     hideStaticElements()
 
     fetch(`http://localhost:3000/games/${type}`)
     .then(resp => resp.json())
     .then(resp => {
-
+        console.log(resp)
         const scoresDiv = document.createElement('div')
         innerContentWrapper.appendChild(scoresDiv)
         scoresDiv.setAttribute('class', 'container-fluid text-center')
@@ -115,8 +131,6 @@ function renderLeaderboard(type) {
 }
 
 // This is Horrible Code!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const questionsURL = 'http://localhost:3000/questions'
 
     // Fetches Correct and Incorrect andswers and Calculates Score
     function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers) {
@@ -150,32 +164,42 @@ function renderLeaderboard(type) {
             if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                recordHighScore();
-                setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+                recordHighScore(gameType);
             }
         })
-        .then(function() {
-            renderLeaderboard('regular')
-        })
     }
 
-    // Initial Fetch to get Questions
-    function questionFetch() {
-        fetch(questionsURL)
-        .then(resp => resp.json())
-        .then(resp => {
-            questions = shuffle(resp)
-        })
-    }
-
-    questionFetch()
-    
     // Displays a new Question, Sets Event Listeners for Answer Choices
     function displayQuestion(gameType) {
+        const answersRow = document.getElementById('answers-row')
+
+        while (answersRow.firstChild) {
+            answersRow.removeChild(answersRow.firstChild);
+          }
+
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
-        const answerContentButtons = document.getElementsByClassName('answer-content')
+        
         const thisQuestion = questions.pop()
+
+        let myAnswers = thisQuestion.answers
+        myAnswers = shuffle(myAnswers)
+        for(let i = 0; i < myAnswers.length; i++) {
+            const thisButton = document.createElement('button')
+            thisButton.innerText = myAnswers[i].content
+            thisButton.setAttribute('class', 'answer-content')
+            thisButton.setAttribute('id', myAnswers[i].id)
+            answersRow.appendChild(thisButton)
+
+            thisButton.addEventListener('click', (event) => {
+                const thisAnswerId = event.target.id
+                clearInterval(ticker)
+                questionAudio.src = ''
+                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers)
+            })
+        }
+
+
         if(gameType === 'regular') {
             var allowedWrongAnswers = 3
             var pointsMultiplier = 1
@@ -187,28 +211,9 @@ function renderLeaderboard(type) {
         gameDiv.classList.remove('hidden')
         loginDiv.classList.add('hidden')
 
-        for (element of answerContentButtons) {
-            element.classList.remove('red')
-            element.classList.remove('green')
-            element.classList.remove('disabled')
-        }
-        
-        let myAnswers = thisQuestion.answers
-        myAnswers = shuffle(myAnswers)
+        playMusic(thisQuestion.media)
 
         questionContent.innerText = thisQuestion.content;
-
-        for(let i = 0; i < thisQuestion.answers.length; i++) {
-            const thisButton = answerContentButtons[i]
-            answerContentButtons[i].innerText = myAnswers[i].content
-            thisButton.setAttribute('id', myAnswers[i].id)
-
-            thisButton.addEventListener('click', (event) => {
-                const thisAnswerId = event.target.id
-                clearInterval(ticker)
-                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers)
-            })
-        }
     }
 
     // Toggle Visibility of Game Type Choice Screen
@@ -242,7 +247,8 @@ function renderLeaderboard(type) {
     })
 
     // end of game logic
-function recordHighScore() {
+function recordHighScore(gameType) {
+    console.log('score')
     const createGameURL = `http://localhost:3000/games`
     const wrapper = document.getElementById('page-content-wrapper')
     username = wrapper.dataset.username
@@ -258,13 +264,16 @@ function recordHighScore() {
           
         body: JSON.stringify ({
             username: username,
-            game_type: 'regular',
+            game_type: gameType,
             score: scoreScreenGrab
         })
     })
     .then(function (data) {  
       console.log('Request success: ', data);  
     })  
+    .then(function() {
+        setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+    })
 }
 
     regularGameButton.addEventListener('click', (event) => {
@@ -288,14 +297,27 @@ function recordHighScore() {
                 if(currentGameWrongAnswers < allowedWrongAnswers) {
                     setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
-                    setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+                    recordHighScore(gameType);
+                    clearInterval(ticker);
                 }
             }
+
             else {
                 score--;
             }
         }, 1000); 
     };
+
+    function playMusic(media) {
+        if(media) {
+            questionAudio.src = media
+            questionAudio.play()
+            setTimeout(function() {
+                questionAudio.pause()
+                questionAudio.src = ''
+            }, 10000)
+        }  
+    }
 })
 
 
