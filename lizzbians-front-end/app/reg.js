@@ -2,7 +2,7 @@
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
 }
-const emptyArray = []
+let emptyArray = []
 let ticker;
 let score;
 let userScore;
@@ -127,7 +127,7 @@ function renderLeaderboard(type) {
                         emptyArray.push(newScore)
                         const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
                         userScore = sum(emptyArray)
-                        scoreKeeper.innerHTML = userScore
+                        scoreKeeper.innerText = userScore
                     }
                     thisAnswerButton.classList.add('green')
                     thisAnswerButton.classList.add('disabled')
@@ -203,7 +203,10 @@ function renderLeaderboard(type) {
     }
 
     function startRegularGame() {
+        emptyArray = []
         userScore = 0
+        scoreKeeper.innerText = userScore
+        console.log(userScore)
         currentGameWrongAnswers = 0
         displayQuestion('regular')
     }
