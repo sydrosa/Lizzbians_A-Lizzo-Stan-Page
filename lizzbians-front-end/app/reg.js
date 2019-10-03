@@ -150,8 +150,8 @@ function renderLeaderboard(type) {
             if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
-                setTimeout(function() {renderLeaderboard(gameType)}, 1000)
                 recordHighScore();
+                setTimeout(function() {renderLeaderboard(gameType)}, 1000)
             }
         })
         .then(function() {
