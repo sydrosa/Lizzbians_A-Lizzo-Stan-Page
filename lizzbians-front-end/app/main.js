@@ -15,14 +15,17 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const trillAudio = document.getElementById('trill-audio')
     const byeBitch = document.getElementById('delete')
     const staticElements = document.getElementById('static-elements').children
+    const gameChoice = document.getElementById('choose-game-type')
+    const loginDiv = document.getElementById('login-div')
     let username;
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
-            user = usernameField.value 
-            const wrapper = document.getElementById('page-content-wrapper')
-            wrapper.setAttribute('data-username', user)
-            console.log(user)
+            event.preventDefault()
+            username = usernameField.value 
+            let wrapper = document.getElementById('page-content-wrapper')
+            wrapper.setAttribute('data-username', username)
+            console.log(username)
             fetch(userLoginURL, {
                 method: 'POST',
                 body: JSON.stringify ({
@@ -37,6 +40,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             .then (response => {
                 clearInnerContent(innerContentWrapper);
+                loginDiv.classList.add('hidden')
+                gameChoice.classList.toggle('hidden')
             })
             .catch(function (error){
                 console.log(`this doesn't work`, error);
@@ -63,6 +68,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             .then (response => {
                 clearInnerContent(innerContentWrapper);
+                loginDiv.classList.add('hidden')
+                gameChoice.classList.toggle('hidden')
             })
             .catch(function (error){
                 console.log(`this doesn't work`, error);
@@ -125,6 +132,7 @@ function renderLeaderboard(type) {
     .then(resp => {
 
         const scoresDiv = document.createElement('div')
+        scoresDiv.setAttribute('class', 'container-fluid text-center')
         innerContentWrapper.appendChild(scoresDiv)
         renderLeaderTables(scoresDiv, type)
 
