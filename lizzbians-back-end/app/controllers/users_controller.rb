@@ -15,11 +15,11 @@ class UsersController < ApplicationController
 
     def create
         user = User.create(user_params) 
-        render json: {status: 'yay!'}
+        render json: {status: 'yay!' }
     end
 
     def user_params
-        params.require(:user).permit(:username, :password)
+        params.require(:user).permit(:username, :password_digest)
     end
 
 

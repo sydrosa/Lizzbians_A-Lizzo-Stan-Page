@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function userSignUp() {
         signupButton.addEventListener('click', (event) => {
-            event.preventDefault()
-            username = usernameField.value
+            username = usernameField.value 
+            const wrapper = document.getElementById('page-content-wrapper')
+            wrapper.setAttribute('data-username', username)
             fetch(userCreate, {
                 method: 'POST',
                 body: JSON.stringify ({
