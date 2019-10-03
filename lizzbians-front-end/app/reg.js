@@ -41,7 +41,6 @@ function questionFetch() {
     })
 }
 
-
 questionFetch()
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -93,6 +92,7 @@ function renderLeaderTables(gameTypeDiv, type) {
 
 // Build Leaderboard 
 function renderLeaderboard(type) {
+    console.log('fetch Leaderboard')
     // clearInnerContent(innerContentWrapper)
     hideStaticElements()
 
@@ -163,6 +163,7 @@ function renderLeaderboard(type) {
             if(currentGameWrongAnswers < allowedWrongAnswers) {
                 setTimeout(function() {displayQuestion(gameType)}, 2000)
             } else {
+                console.log('fetch correct')
                 setTimeout(function() {renderLeaderboard(gameType)}, 1000)
             }
         })
@@ -264,6 +265,7 @@ function renderLeaderboard(type) {
                 if(currentGameWrongAnswers < allowedWrongAnswers) {
                     setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
+                    console.log('countdown end')
                     setTimeout(function() {renderLeaderboard(gameType)}, 1000)
                 }
             }
@@ -283,11 +285,6 @@ function renderLeaderboard(type) {
             }, 10000)
         }  
     }
-
-
-
-
-
 })
 
 
