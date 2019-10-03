@@ -101,22 +101,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     
 })
-        function countDownTimer() {
-            console.log(`I'm running this many times`)
-            let timer = document.getElementById('time-goes-here')
-            let row = document.getElementById('answers-row')
-            // let emptyArray = []
-            score = 10;
-            ticker = setInterval(function () {
-                timer.innerHTML = score;
-                if (score === 0) {
-                    clearInterval(ticker);
-                }
-                else {
-                    score--;
-                }
-            }, 1000);
-            
-            
-            
-        };
+    function countDownTimer() {
+        let timer = document.getElementById('time-goes-here')
+        score = 10;
+        ticker = setInterval(function () {
+            timer.innerHTML = score;
+            if (score === 0) {
+                clearInterval(ticker);
+            }
+            else {
+                score--;
+            }
+        }, 1000);
+        
+        
+    };
+
