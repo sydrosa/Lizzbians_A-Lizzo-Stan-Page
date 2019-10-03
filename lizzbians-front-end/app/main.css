@@ -1,3 +1,5 @@
+
+
 /* Sidebar */
 #sidebar-wrapper{
     z-index:1;
@@ -31,7 +33,7 @@
 }
 /* Change the width of the sidebar to display it*/
 #wrapper.menuDisplayed #sidebar-wrapper{
-    width: 100px;   
+    width: 200px;   
 }
 
 #wrapper.menuDisplayed #page-content-wrapper{
@@ -83,10 +85,11 @@ table {
 }
 
 #trill-button {
-    border-radius: 100%;
+    /* border-radius: 100%; */
     position: fixed;
-    right: 5%;
-    bottom: 5%
+    right: 0%;
+    bottom: 0%;
+    width: 20%
 }
 
 .choice-image, .choice-button {
@@ -121,3 +124,26 @@ button.green {
     justify-content: center;
     width: 100%
 }
+
+#regular-game-button, #speed-game-button {
+    width: 50%;
+    background: 
+        -webkit-linear-gradient(top, rgba(232, 81, 158, 0.51),rgba(199, 127, 242, 0.51) ),
+        url('https://gcn.ie/wp-content/uploads/2019/07/lizzo-coming-dublin.jpg');
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    height: 150px;
+
+    background-size: 100%;
+}
+
+#speed-game-button {
+    background: 
+    -webkit-linear-gradient(top, rgba(232, 81, 158, 0.51),rgba(199, 127, 242, 0.51) ),
+    url('https://media.npr.org/assets/img/2016/12/03/lizzo-image-3a_wide-902dc363683250a36138a9ef750c737762672b12-s800-c85.jpg');
+    background-size: 100%;
+}
+
+
+

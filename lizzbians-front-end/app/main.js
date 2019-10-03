@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const staticElements = document.getElementById('static-elements').children
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
+    const sideBar = document.getElementById('menu-toggle')
+    const pageTitle = document.getElementById('page-title')
     let username;
 
     function userLogIn() {
@@ -37,9 +39,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .then(handleErrors)
 
             .then (response => {
+                
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
+                trillButton.classList.toggle('hidden')
+                sideBar.classList.toggle('hidden')
+                // pageTitle.classList.toggle('hidden')
             })
             .catch(function (error){
                 alert ("Login was unsuccsessful. Please try again!");
@@ -69,6 +75,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
+                trillButton.classList.toggle('hidden')
+                sideBar.classList.toggle('hidden')
+                pageTitle.classList.toggle('hidden')
             })
             .catch(function (error){
                 console.log(`this doesn't work`, error);

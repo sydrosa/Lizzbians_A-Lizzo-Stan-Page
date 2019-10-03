@@ -23,6 +23,29 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+    <link rel="icon" type="image/png" href="Login_v13/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="Login_v13/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Login_v13/css/util.css">
+	<link rel="stylesheet" type="text/css" href="Login_v13/css/main.css">
+
     <link rel = "stylesheet" type = "text/css" href = "main.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,52 +78,33 @@
             <li><a href="#" id='trivia'>Play Trivia</a></li>
         </ul>
     </div>         
-    <div id="page-content-wrapper" data-username='kyle' class='container-fluid'>
-        <h1 class='text-center'>Lizzbians</h1> 
-        <img src=https://lizzbians.s3-us-west-2.amazonaws.com/lizzo_flute.jpg id='trill-button'>
+    <div id="page-content-wrapper" data-username='' class='container-fluid'>
+        <!-- <h1 id='page-title' class='text-center hidden'>Lizzbians</h1>  -->
+        <img class='hidden' src=https://lizzbians.s3-us-west-2.amazonaws.com/image.png id='trill-button'>
         <audio controls src="https://lizzbians.s3-us-west-2.amazonaws.com/44+second+flute+trill+-+world+record+lol.mp3" id='trill-audio' class='hidden'></audio>
         <div class="container-fluid">
             <div class="row">
-                <a href="#" class="btn" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+                <a href="#" class="btn hidden" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
                     <!-- Page Content -->
                     <div id='inner-content' class='col-lg-12'>
-                        <!-- Choose Game Type -->
-                        <div id='choose-game' class='hidden'>
-                            <h2 class='text-center'>Which type of quiz would you like to play?</h2>
-                            <div>
-                                <div class=col-lg-1></div>
-                                <div id='regular-game' class='col-lg-5 '>
-                                    <img class='text-center' src=https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg class='choice-image'><br>
-                                    <button class='choice-button'>Regular Game</button>
-                                </div>
-                                <div id='speed-game' class='col-lg-5'>
-                                    <img src=https://lizzbians.s3-us-west-2.amazonaws.com/sparkly.jpg class='choice-image'><br>
-                                    <button class='choice-button'>Speed Game</button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div id='static-elements'>
                         <!-- Choose a Game Type -->
-                        <div id='choose-game-type' class='container-fluid text-center hidden'>
-                            <div class='row justify-content-center'>
+                        <div id='choose-game-type' class='container-fluid text-center justify-content-center hidden'>
+                            <!-- <div class='row justify-content-center'>
                                 <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/lizzo-70s.jpg'>
-                            </div>
+                            </div> -->
                             <div class='row justify-content-center'>
-                                <h2>What type of Game would you like to Play?</h2>
+                                <!-- <h2>What type of Game would you like to Play?</h2> -->
                             </div>
-                            <div class='row justify-content-center'>
-                                <div class='col-lg'>
-                                </div>
-                                <div class='col-lg'>
-                                    <button id='regular-game-button'>Regular</button>
-                                </div>
-                                <div class='col-lg'>
-                                    <button id='speed-game-button'>Speed</button>
-                                </div>
-                                <div class='col-lg'>
-                                </div> 
+                            <div class='col-lg justify-content-center' >
+                                <button id='regular-game-button' class="login100-form-btn">regular<br>trivia</button>
                             </div>
+                            <div class='col-lg justify-content-center'>
+                                <button id='speed-game-button' class="login100-form-btn">speed<br>trivia</button>
+                            </div>
+
+
                         </div>
                         <!-- Game Play -->
                         <div id='game-div' class='container-fluid text-center hidden'>
@@ -133,7 +137,53 @@
                             </div>                           
                         </div>
                         <!-- Log In/Sign Up -->
-                        <div class="container-fluid text-center col-lg-12" id="login-div">
+
+                        
+	<div id="login-div" class="limiter">
+            <div class="container-login100">
+                <div class="login100-more" style="background-image: url('https://peopledotcom.files.wordpress.com/2019/07/lizzo-2-e1563906165171.jpg?w=1625&h=1195');"></div>
+    
+                <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-59">
+                            Sign Up
+                        </span>
+    
+                        <div class="wrap-input100 validate-input" data-validate="Username is required">
+                            <span class="label-input100">Username</span>
+                            <input id='username' class="input100" type="text" name="username" placeholder="Username...">
+                            <span class="focus-input100"></span>
+                        </div>
+    
+                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                            <span class="label-input100">Password</span>
+                            <input id='password' class="input100" type="text" name="pass" placeholder="*************">
+                            <span class="focus-input100"></span>
+
+                        </div>
+                        <div class="container-login100-form-btn">
+                                <div class="wrap-login100-form-btn">
+                                    <div class="login100-form-bgbtn"></div>
+                                    <button id='signup' class="login100-form-btn">
+                                        Sign Up
+                                    </button>
+                                </div>
+        
+                                <a id='login' href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+                                    Login
+                                    <i class="fa fa-long-arrow-right m-l-5"></i>
+                                </a>
+                            </div>
+    
+                            
+                        </div>
+    
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+                        <!-- <div class="container-fluid text-center col-lg-12" id="login-div">
                             <form id="login-form">
                                 <label for="username"><b>Username</b></label>
                                 <input type="text" id="username" placeholder="Enter Username" name="username" required>
@@ -144,12 +194,28 @@
                                 <button type="submit" id="signup">Signup</button>
                                 <button type="submit" id="login">Login</button>
                             </form>
-                        </div> 
+                        </div>  -->
                     </div>
                 </div>
            
         </div>
     </div>
+    <!--===============================================================================================-->
+	<script src="Login_v13/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/vendor/bootstrap/js/popper.js"></script>
+        <script src="Login_v13/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/vendor/daterangepicker/moment.min.js"></script>
+        <script src="Login_v13/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+        <script src="Login_v13/js/main.js"></script>
     <script src="main.js"></script>    
     <script src="reg.js"></script>                 
     </body>
