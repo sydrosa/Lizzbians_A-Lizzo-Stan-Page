@@ -30,6 +30,18 @@ var shuffle = function (array) {
 	return array;
 };
 
+// Initial Fetch to get Questions
+function questionFetch() {
+    fetch(questionsURL)
+    .then(resp => resp.json())
+    .then(resp => {
+        questions = shuffle(resp)
+    })
+}
+
+questionFetch()
+    
+
 document.addEventListener('DOMContentLoaded', (event) => {
     // Set Variables
     const scoreKeeper = document.getElementById('score-goes-here')
@@ -42,6 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const answerContentButtons = document.getElementsByClassName('answer-content')
     const regularGameButton = document.getElementById('regular-game-button')
     const speedGameButton = document.getElementById('speed-game-button')
+    const questionAudio = document.getElementById('question-audio')
     var currentGameWrongAnswers = 0
 
 // This is Horrible CodE!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,13 +91,13 @@ function renderLeaderTables(gameTypeDiv, type) {
 
 // Build Leaderboard 
 function renderLeaderboard(type) {
-
+    // clearInnerContent(innerContentWrapper)
     hideStaticElements()
 
     fetch(`http://localhost:3000/games/${type}`)
     .then(resp => resp.json())
     .then(resp => {
-
+        console.log(resp)
         const scoresDiv = document.createElement('div')
         innerContentWrapper.appendChild(scoresDiv)
         scoresDiv.setAttribute('class', 'container-fluid text-center')
@@ -154,17 +167,6 @@ function renderLeaderboard(type) {
         })
     }
 
-    // Initial Fetch to get Questions
-    function questionFetch() {
-        fetch(questionsURL)
-        .then(resp => resp.json())
-        .then(resp => {
-            questions = shuffle(resp)
-        })
-    }
-
-    questionFetch()
-    
     // Displays a new Question, Sets Event Listeners for Answer Choices
     function displayQuestion(gameType) {
         const gameDiv = document.getElementById('game-div')
@@ -191,6 +193,8 @@ function renderLeaderboard(type) {
         let myAnswers = thisQuestion.answers
         myAnswers = shuffle(myAnswers)
 
+        playMusic(thisQuestion.media)
+
         questionContent.innerText = thisQuestion.content;
 
         for(let i = 0; i < thisQuestion.answers.length; i++) {
@@ -201,6 +205,8 @@ function renderLeaderboard(type) {
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
                 clearInterval(ticker)
+                // questionAudio.pause()
+                questionAudio.src = ''
                 fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier, gameType, allowedWrongAnswers)
             })
         }
@@ -265,6 +271,22 @@ function renderLeaderboard(type) {
             }
         }, 1000); 
     };
+
+    function playMusic(media) {
+        if(media) {
+            questionAudio.src = media
+            questionAudio.play()
+            setTimeout(function() {
+                questionAudio.pause()
+                questionAudio.src = ''
+            }, 10000)
+        }  
+    }
+
+
+
+
+
 })
 
 

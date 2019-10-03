@@ -55,3 +55,15 @@ answers = [
     end
     
     addAnswers(answers)
+
+    song1 = Question.create(content: 'What is the title of this song? (Make sure your volume is on!)', media: 'https://lizzbians.s3-us-west-2.amazonaws.com/Lizzo+-+Good+As+Hell+(Official+Video).mp3')
+    Answer.create(question_id: song1.id, content: "Good as Hell", is_correct: true)
+    Answer.create(question_id: song1.id, content: "Juice", is_correct: false)
+    Answer.create(question_id: song1.id, content: "Tempo", is_correct: false)
+    Answer.create(question_id: song1.id, content: "Truth Hurts", is_correct: false)
+
+    song2 = Question.create(content: 'What is the title of this song? (Make sure your volume is on!)', media: 'https://lizzbians.s3-us-west-2.amazonaws.com/Lizzo+-+Truth+Hurts+(Official+Video).mp3')
+    Answer.create(question_id: song2.id, content: "Good as Hell", is_correct: false)
+    Answer.create(question_id: song2.id, content: "Juice", is_correct: false)
+    Answer.create(question_id: song2.id, content: "Tempo", is_correct: false)
+    Answer.create(question_id: song2.id, content: "Truth Hurts", is_correct: true)
