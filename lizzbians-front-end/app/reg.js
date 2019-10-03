@@ -266,6 +266,7 @@ function renderLeaderboard(type) {
                     setTimeout(function() {displayQuestion(gameType)}, 1000)
                 } else {
                     console.log('countdown end')
+                    console.log(score)
                     setTimeout(function() {renderLeaderboard(gameType)}, 1000)
                 }
             }
