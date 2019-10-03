@@ -9,6 +9,7 @@ class GamesController < ApplicationController
     def create
         puts params
         user = User.find_by(username: params[:username])
+        # byebug
         game = Game.create(user_id: user.id, score: params[:score], game_type: params[:game_type])
         render json: {status: 'yay!'}
     end
