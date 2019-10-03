@@ -116,3 +116,8 @@ button.red {
 button.green {
     background-color: green;
 }
+
+#static-elements {
+    justify-content: center;
+    width: 100%
+}

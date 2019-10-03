@@ -1,0 +1,22 @@
+.toast-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -75px;
+    border-radius: 6px;
+    padding: 10px 10px;
+    width: 150px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+}
+.toast-info {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.toast-error {
+    background-color: rgba(228, 43, 60, 0.5);
+}
+.toast-success {
+    background-color: rgba(37, 198, 60, 0.5);
+}

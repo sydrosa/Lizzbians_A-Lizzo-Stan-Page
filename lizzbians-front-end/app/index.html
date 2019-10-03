@@ -30,7 +30,6 @@
     <title>Document</title>
 </head>
 
-
 <body>
     <div id="wrapper">
         <!-- Sidebar -->
@@ -81,9 +80,28 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <!-- Test  -->
-                        <button id='game-test'>Game Test</button>
+                    <div id='static-elements'>
+                        <!-- Choose a Game Type -->
+                        <div id='choose-game-type' class='container-fluid text-center hidden'>
+                            <div class='row justify-content-center'>
+                                <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/lizzo-70s.jpg'>
+                            </div>
+                            <div class='row justify-content-center'>
+                                <h2>What type of Game would you like to Play?</h2>
+                            </div>
+                            <div class='row justify-content-center'>
+                                <div class='col-lg'>
+                                </div>
+                                <div class='col-lg'>
+                                    <button id='regular-game-button'>Regular</button>
+                                </div>
+                                <div class='col-lg'>
+                                    <button id='speed-game-button'>Speed</button>
+                                </div>
+                                <div class='col-lg'>
+                                </div> 
+                            </div>
+                        </div>
                         <!-- Game Play -->
                         <div id='game-div' class='container-fluid text-center hidden'>
                             <audio controls src="" id='question-audio' class='hidden'></audio>
@@ -92,28 +110,31 @@
                                     <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg'>
                                 </div>
                             </div>
+                            <div class="container" id="timer">
+                                <p id="time-goes-here"></p>
+                            </div>  
                             <div class=row>
                                 <div class='col-lg'>
                                     <p id='question-content'> Question </p>
                                 </div>
                             </div>
                             <div id='answers-row' class=row>
-                                <div class='col-lg'>
+                                <div class='col-lg col-m'>
                                     <button class='answer-content'>Answer</button>
                                 </div>
-                                <div class='col-lg'>
+                                <div class='col-lg col-m'>
                                     <button class='answer-content'>Answer</button>
                                 </div>
-                                <div class='col-lg'>
+                                <div class='col-lg col-m'>
                                     <button class='answer-content'>Answer</button>
                                 </div>
-                                <div class='col-lg'>
+                                <div class='col-lg col-m'>
                                     <button class='answer-content'>Answer</button>
                                 </div>
                             </div>                           
                         </div>
                         <!-- Log In/Sign Up -->
-                        <div class="container" id="login-div">
+                        <div class="container-fluid text-center col-lg-12" id="login-div">
                             <form id="login-form">
                                 <label for="username"><b>Username</b></label>
                                 <input type="text" id="username" placeholder="Enter Username" name="username" required>
@@ -128,12 +149,15 @@
                         <div class="container" id="timer">
                                 <p id="time-goes-here"></p>
                             </div>  
+                            <div class="container" id="score">
+                                <p id="score-goes-here"></p>
+                            </div>
                     </div>
                 </div>
            
         </div>
     </div>
     <script src="main.js"></script>    
-    <script src="reg.js"></script>                     
+    <script src="reg.js"></script>                 
     </body>
 </html>
