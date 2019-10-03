@@ -1,5 +1,3 @@
-// const { renderLeaderboard } = require("./helper_functions.js")
-
 // Remove Content From Inner-Conent Div
 function clearInnerContent(innerContentWrapper) {
     innerContentWrapper.innerHTML = ''
@@ -7,6 +5,7 @@ function clearInnerContent(innerContentWrapper) {
 const emptyArray = []
 let ticker;
 let score;
+let userScore;
 
 var shuffle = function (array) {
 
@@ -29,6 +28,7 @@ var shuffle = function (array) {
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    const scoreKeeper = document.getElementById('score-goes-here')
     const innerContentWrapper = document.getElementById('inner-content')
     const playTrivia = document.getElementById('trivia')
     const gameChoice = document.getElementById('choose-game-type')
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const questionContent = document.getElementById('question-content')
     const answerContentButtons = document.getElementsByClassName('answer-content')
     const regularGameButton = document.getElementById('regular-game-button')
-    let currentGameWrongAnswers = 0
+    var currentGameWrongAnswers = 0
 
 // This is Horrible CodE!!! ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -113,6 +113,43 @@ function renderLeaderboard(type) {
 
     const questionsURL = 'http://localhost:3000/questions'
 
+    function fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier) {
+        fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
+        .then(resp => resp.json())
+        .then(resp => {
+            for(let i = 0; i < resp.length; i++) {
+                let thisAnswerButton = document.getElementById(resp[i].id)
+                if(resp[i].is_correct === true) {
+                    if(parseInt(thisAnswerId) === resp[i].id) {
+                        let newScore = 0
+                        newScore = (score + 1) * pointsMultiplier;
+
+                        emptyArray.push(newScore)
+                        const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
+                        userScore = sum(emptyArray)
+                        scoreKeeper.innerHTML = userScore
+                    }
+                    thisAnswerButton.classList.add('green')
+                    thisAnswerButton.classList.add('disabled')
+                } else {
+                    if(parseInt(thisAnswerId) === resp[i].id) {
+                        currentGameWrongAnswers += 1
+                    }
+                    thisAnswerButton.classList.add('red')
+                    thisAnswerButton.classList.add('disabled')
+                }
+            }
+        })
+        .then(function() {
+            if(currentGameWrongAnswers < 3) {
+                setTimeout(function() {displayQuestion('regular')}, 2000)
+            } else {
+                renderLeaderboard('regular')
+            }
+        })
+    }
+
+
     fetch(questionsURL)
     .then(resp => resp.json())
     .then(resp => {
@@ -120,11 +157,18 @@ function renderLeaderboard(type) {
     })
     
     function displayQuestion(gameType) {
-        countDownTimer();
         const gameDiv = document.getElementById('game-div')
         const questionContent = document.getElementById('question-content')
         const answerContentButtons = document.getElementsByClassName('answer-content')
         const thisQuestion = questions.pop()
+        if(gameType === 'regular') {
+            var allowedWrongAnswers = 3
+            var pointsMultiplier = 1
+        } else if(gameType === 'speed') {
+            var allowedWrongAnswers = 1
+            var pointsMultiplier = 5
+        }
+        countDownTimer(allowedWrongAnswers);
         gameDiv.classList.remove('hidden')
         loginDiv.classList.add('hidden')
 
@@ -133,59 +177,23 @@ function renderLeaderboard(type) {
             element.classList.remove('green')
             element.classList.remove('disabled')
         }
+        
+        let myAnswers = thisQuestion.answers
+        myAnswers = shuffle(myAnswers)
 
         questionContent.innerText = thisQuestion.content;
 
         for(let i = 0; i < thisQuestion.answers.length; i++) {
-            const myAnswers = thisQuestion.answers
             const thisButton = answerContentButtons[i]
             answerContentButtons[i].innerText = myAnswers[i].content
             thisButton.setAttribute('id', myAnswers[i].id)
 
-
             thisButton.addEventListener('click', (event) => {
                 const thisAnswerId = event.target.id
-                let scoreKeeper = document.getElementById('score-goes-here')
                 clearInterval(ticker)
-    
-                fetch(`http://localhost:3000/answers/${thisQuestion.id}`)
-                .then(resp => resp.json())
-                .then(resp => {
-                    for(let i = 0; i < resp.length; i++) {
-                        let thisAnswerButton = document.getElementById(resp[i].id)
-                        if(resp[i].is_correct === true) {
-                            if(parseInt(thisAnswerId) === resp[i].id) {
-                                let newScore = score + 1;
-                                emptyArray.push(newScore)
-                                const sum = emptyArray => emptyArray.reduce((a,b) => a + b, 0)
-                                let userScore = sum(emptyArray)
-                                console.log(userScore)
-                                scoreKeeper.innerHTML = userScore
-                                console.log('Correct Answer')
-                            }
-                            thisAnswerButton.classList.add('green')
-                            thisAnswerButton.classList.add('disabled')
-                        } else {
-                            if(parseInt(thisAnswerId) === resp[i].id) {
-                                console.log('Incorrect Answer')
-                                currentGameWrongAnswers += 1
-                            }
-                            thisAnswerButton.classList.add('red')
-                            thisAnswerButton.classList.add('disabled')
-                        }
-                    }
-                })
-                .then(function() {
-                    // do the score things
-                })
-                .then(function() {
-                    if(currentGameWrongAnswers < 3) {
-                        setTimeout(displayQuestion, 2000)
-                    } else {
-                        console.log('done')
-                        renderLeaderboard('regular')
-                    }
-                })
+                console.log('pointsMultiplier is thisButton.addEvent')
+                console.log(typeof pointsMultiplier)
+                fetchCorrectAnswers(thisQuestion, thisAnswerId, pointsMultiplier)
             })
         }
     }
@@ -195,9 +203,14 @@ function renderLeaderboard(type) {
     }
 
     function startRegularGame() {
+        userScore = 0
         currentGameWrongAnswers = 0
         displayQuestion('regular')
+    }
 
+    function startSpeedGame() {
+        currentGameWrongAnswers = 0
+        displayQuestion('speed')
     }
 
     playTrivia.addEventListener('click', (event) => {
@@ -209,29 +222,31 @@ function renderLeaderboard(type) {
 
     regularGameButton.addEventListener('click', (event) => {
         toggleGameChoice()
-        startRegularGame()
-        
+        startRegularGame() 
     })
 
-    
-    
+    function countDownTimer(allowedWrongAnswers) {
+        let timer = document.getElementById('time-goes-here')
+        let row = document.getElementById('answers-row')
+        score = 10;
+        ticker = setInterval(function () {
+            timer.innerText = score;
+            if (score === 0) {
+                clearInterval(ticker);
+                currentGameWrongAnswers += 1
+                if(currentGameWrongAnswers < allowedWrongAnswers) {
+                    setTimeout(function() {displayQuestion('regular')}, 1000)
+                } else {
+                    setTimeout(renderLeaderboard('regular'))
+                }
+            }
+            else {
+                score--;
+            }
+        }, 1000); 
+    };
 })
-        function countDownTimer() {
-            console.log(`I'm running this many times`)
-            let timer = document.getElementById('time-goes-here')
-            let row = document.getElementById('answers-row')
-            // let emptyArray = []
-            score = 10;
-            ticker = setInterval(function () {
-                timer.innerHTML = score;
-                if (score === 0) {
-                    clearInterval(ticker);
-                }
-                else {
-                    score--;
-                }
-            }, 1000);
-            
-            
-            
-        };
+
+
+
+
