@@ -38,7 +38,7 @@
 }
 
 #wrapper.menuDisplayed #page-content-wrapper{
-    padding-left:100px; 
+    padding-left:200px; 
 }
   
   /* Sidebar styling */
@@ -95,6 +95,7 @@ table {
 
 .choice-image, .choice-button {
     width: 75%;
+    height: 50%
 }
 
 #question-image {
@@ -130,9 +131,12 @@ button.green {
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
-    height: 150px;
-
-    background-size: 100%;
+    height: 75%;
+    /* background-position: 50px 0px; */
+    background-size: cover;
+}
+#regular-game-button {
+    padding-right: 20%
 }
 
 #speed-game-button {
@@ -140,10 +144,16 @@ button.green {
     -webkit-linear-gradient(top, rgba(232, 81, 158, 0.51),rgba(199, 127, 242, 0.51) ),
     url('https://media.npr.org/assets/img/2016/12/03/lizzo-image-3a_wide-902dc363683250a36138a9ef750c737762672b12-s800-c85.jpg');
     background-size: 100%;
+    padding-left: 30%
 }
 
-th {
+.table-header-row {
+    border-bottom: 3px solid black;
+    margin-bottom: 5px;
+}
+table th, table td {
     text-align: center;  
+    font-size: 1.5em;
 }
 
 h2 {
@@ -171,6 +181,32 @@ h2 {
 }
 
 #game-div {
-    padding-top: 5%
+    padding-top: 5%;
+}
+
+#progress-div {
+    margin-top: 2%;
+    width: 75%
+}
+
+#score-badge {
+    border-radius: 100%;
+    background:#74D2F4;
+    /* -webkit-linear-gradient(top, rgba(232, 81, 158, 0.51),rgba(199, 127, 242, 0.51) ); */
+    height: 100px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#score-badge > p {
+    width: 100%;
+    font-size: 5em;
+    font-family: 'Mansalva', cursive;
+
+}
+
+#choose-game-type > div {
+    height: 40vh;
 }
 

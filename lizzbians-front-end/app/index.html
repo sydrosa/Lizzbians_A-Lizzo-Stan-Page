@@ -45,6 +45,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login_v13/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Login_v13/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
 
     <link rel = "stylesheet" type = "text/css" href = "main.css" />
     <meta charset="UTF-8">
@@ -91,12 +92,6 @@
                     <div id='static-elements'>
                         <!-- Choose a Game Type -->
                         <div id='choose-game-type' class='container-fluid text-center justify-content-center hidden'>
-                            <!-- <div class='row justify-content-center'>
-                                <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/lizzo-70s.jpg'>
-                            </div> -->
-                            <div class='row justify-content-center'>
-                                <!-- <h2>What type of Game would you like to Play?</h2> -->
-                            </div>
                             <div class='col-lg justify-content-center' >
                                 <button id='regular-game-button' class="login100-form-btn">regular<br>trivia</button>
                             </div>
@@ -109,13 +104,15 @@
                             <audio controls src="" id='question-audio' class='hidden'></audio>
                             <div class='row col-xlg-12 justify-content-center'>
                                 <div class="container col-lg" id="timer">
-                                    <p id="time-goes-here"></p>
+                                    <p class='hidden' id="time-goes-here"></p>
                                 </div>  
-                                <div class='col-lg'>
+                                <div class='col-lg d-flex align-items-center'>
                                     <h1 id='question-content'> Question </h1>
                                 </div>
                                 <div class="container col-lg" id="score">
-                                        <p id="score-goes-here"></p>
+                                    <div id='score-badge' class='d-flex align-items-center'>
+                                        <p id="score-goes-here" class='text-center'></p>    
+                                    </div>
                                 </div>
                             </div>
                             <div id='answers-row' class=row>
@@ -128,6 +125,12 @@
                                 <div class='answer-button-div col-lg col-m'>
                                 </div>
                             </div> 
+                            <div id='progress-div' class="container">
+                                    <div class="progress">
+                                        <div id='progress-bar' class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- Log In/Sign Up -->
                         <div id="login-div" class="limiter">

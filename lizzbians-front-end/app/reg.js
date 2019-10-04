@@ -80,6 +80,7 @@ function renderLeaderTables(gameTypeDiv, type) {
     gameTypeDiv.appendChild(scoresTable)
 
     const scoresHeaderRow = document.createElement('tr')
+    scoresHeaderRow.setAttribute('class', 'table-header-row')
     scoresTable.appendChild(scoresHeaderRow)
 
     const scoresNameHeader = document.createElement('th')
@@ -287,11 +288,12 @@ function recordHighScore(gameType) {
     })
 
     function countDownTimer(allowedWrongAnswers, gameType) {
-
+        let progressBar = document.getElementById('progress-bar')
         let timer = document.getElementById('time-goes-here')
         score = 10;
         ticker = setInterval(function () {
             timer.innerText = score;
+            progressBar.setAttribute('style', `width:${score*10}%`)
             if (score === 0) {
                 clearInterval(ticker);
                 currentGameWrongAnswers += 1

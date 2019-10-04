@@ -120,6 +120,7 @@ function renderLeaderTables(gameTypeDiv, type) {
     gameTypeDiv.appendChild(scoresTable)
 
     const scoresHeaderRow = document.createElement('tr')
+    scoresHeaderRow.setAttribute('class', 'table-header-row')
     scoresTable.appendChild(scoresHeaderRow)
 
     const scoresNameHeader = document.createElement('th')
