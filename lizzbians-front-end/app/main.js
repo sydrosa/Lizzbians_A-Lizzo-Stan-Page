@@ -103,14 +103,16 @@ function clearInnerContent(innerContentWrapper) {
 // Leaderboard Table Helper Methods
 function renderLeaderTables(gameTypeDiv, type) {
     const scoresTitle = document.createElement('h2')
-    scoresTitle.innerText = `${type} Scores Table`
+    scoresTitle.innerText = `${type} scores table`
     gameTypeDiv.appendChild(scoresTitle)
 
     const scoresTable = document.createElement('table')
     scoresTable.setAttribute('id', type)
+    scoresTable.setAttribute('class', 'text-center')
     gameTypeDiv.appendChild(scoresTable)
 
     const scoresHeaderRow = document.createElement('tr')
+    scoresHeaderRow.setAttribute('class', 'table-header-row')
     scoresTable.appendChild(scoresHeaderRow)
 
     const scoresNameHeader = document.createElement('th')
@@ -133,6 +135,7 @@ function renderLeaderboard(type) {
 
         const scoresDiv = document.createElement('div')
         scoresDiv.setAttribute('class', 'container-fluid text-center')
+        scoresDiv.setAttribute('id', 'scores-div')
         innerContentWrapper.appendChild(scoresDiv)
         renderLeaderTables(scoresDiv, type)
 
