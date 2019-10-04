@@ -80,6 +80,7 @@ function renderLeaderTables(gameTypeDiv, type) {
     gameTypeDiv.appendChild(scoresTable)
 
     const scoresHeaderRow = document.createElement('tr')
+    scoresHeaderRow.setAttribute('class', 'table-header-row')
     scoresTable.appendChild(scoresHeaderRow)
 
     const scoresNameHeader = document.createElement('th')
@@ -105,6 +106,7 @@ function renderLeaderboard(type) {
         const scoresDiv = document.createElement('div')
         innerContentWrapper.appendChild(scoresDiv)
         scoresDiv.setAttribute('class', 'container-fluid text-center')
+        scoresDiv.setAttribute('id', 'scores-div')
         renderLeaderTables(scoresDiv, type)
 
         const thisTable = document.getElementById(`${type}`)
@@ -268,10 +270,10 @@ function recordHighScore(gameType) {
             score: scoreScreenGrab
         })
     })
-    .then(function (data) {  
-      console.log('Request success: ', data);  
-    })  
-    .then(function() {
+    .then(resp => resp.json()  )
+    .then(resp =>  {
+        console.log(resp)
+        // resp < 10 attach badge
         setTimeout(function() {renderLeaderboard(gameType)}, 1000)
     })
 }
@@ -287,11 +289,12 @@ function recordHighScore(gameType) {
     })
 
     function countDownTimer(allowedWrongAnswers, gameType) {
-
+        let progressBar = document.getElementById('progress-bar')
         let timer = document.getElementById('time-goes-here')
         score = 10;
         ticker = setInterval(function () {
             timer.innerText = score;
+            progressBar.setAttribute('style', `width:${score*10}%`)
             if (score === 0) {
                 clearInterval(ticker);
                 currentGameWrongAnswers += 1
