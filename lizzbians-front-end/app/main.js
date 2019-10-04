@@ -232,34 +232,16 @@ function renderThemeSettings(wrapper) {
         console.log('up')
         trillAudio.pause()
     })
+    
 
-lyrics.addEventListener('click', (event) => {
-    clearInnerContent(innerContentWrapper);
-    hideStaticElements();
-    fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "genius.p.rapidapi.com",
-            "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        let songObj = response.response
-            console.log(songObj)
-            for (var songs of songObj.songs) {
-                let innerContent = document.getElementById('inner-content')
-                let div = document.createElement('lizzo-songs')
-                let ul = document.createElement('ul')
-                let link = document.createElement('a')
-                let linkText = document.createTextNode(`${songs.full_title}`)
-                link.title = `${songs.full_title}`
-                link.href = `${songs.url}`
-                link.appendChild(linkText)
-                div.appendChild(ul)
-                innerContent.appendChild(div)
-            
-                console.log(songs.full_title)
+    lyrics.addEventListener('click', (event) => {
+        clearInnerContent(innerContentWrapper);
+        hideStaticElements();
+        fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "genius.p.rapidapi.com",
+                "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
             }
         })
         .then(response => response.json())
@@ -267,16 +249,27 @@ lyrics.addEventListener('click', (event) => {
             let songObj = response.response
                 console.log(songObj)
                 for (var songs of songObj.songs) {
-                    // let songArray = songObj.songs
-
-                    console.log(songs.full_title)
+                    let innerContent = document.getElementById('inner-content')
+                    let div = document.createElement('lizzo-songs')
+                    div.setAttribute('class', 'lizzo-songs')
+                    let ul = document.createElement('ul')
+                    let link = document.createElement('a')
+                    let linkText = document.createTextNode(`${songs.full_title}`)
+                    link.title = `${songs.full_title}`
+                    link.href = `${songs.url}`
+                    link.appendChild(linkText)
+                    ul.appendChild(link)
+                    div.appendChild(ul)
+                    innerContent.appendChild(div)
+                
                 }
             })
-        
-        .catch(err => {
-            console.log(err);
+            .catch(err => {
+                console.log(err);
+            });
         });
-    });
+    
+
 
 });
       
