@@ -1,6 +1,3 @@
-// import { renderLeaderboard } from "helper_functions.js";
-// const { renderLeaderboard } = require("./helper_functions.js")
-
 document.addEventListener('DOMContentLoaded', (event) => {
     const signupButton = document.getElementById('signup')
     const loginButton = document.getElementById('login')
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             .then (response => {
                 clearInnerContent(innerContentWrapper);
-                loginDiv.classList.add('hidden')
+                loginDiv.classList.add('hide')
                 gameChoice.classList.toggle('hidden')
                 trillButton.classList.toggle('hidden')
                 menuToggle.classList.toggle('hidden')
@@ -72,7 +69,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
             .then (response => {
                 clearInnerContent(innerContentWrapper);
-                loginDiv.classList.add('hidden')
+                loginDiv.classList.add('hide')
                 gameChoice.classList.toggle('hidden')
                 trillButton.classList.toggle('hidden')
                 menuToggle.classList.toggle('hidden')
@@ -82,7 +79,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             })
         })
     }
-//reloads page to sign user out --> we should put this into a main menu function that runs all menu functions <--
+
     function userSignOut() {
         byeBitch.addEventListener('click', (event) => {
             document.location.reload(true)
@@ -92,117 +89,116 @@ document.addEventListener('DOMContentLoaded', (event) => {
     userLogIn();
     userSignUp();
     userSignOut();
-    
-// Handling Errors
-function handleErrors(response) {
-    if (!response.ok) {
-        throw Error(response.statusText);
-    }
-    return response.json();
-}
-
-// Remove Content From Inner-Conent Div
-function clearInnerContent(innerContentWrapper) {
-    innerContentWrapper.innerHTML = ''
-}
-
-// Leaderboard Table Helper Methods
-function renderLeaderTables(gameTypeDiv, type) {
-    const scoresTitle = document.createElement('h2')
-    scoresTitle.innerText = `${type} scores table`
-    gameTypeDiv.appendChild(scoresTitle)
-
-    const scoresTable = document.createElement('table')
-    scoresTable.setAttribute('id', type)
-    scoresTable.setAttribute('class', 'text-center')
-    gameTypeDiv.appendChild(scoresTable)
-
-    const scoresHeaderRow = document.createElement('tr')
-    scoresHeaderRow.setAttribute('class', 'table-header-row')
-    scoresTable.appendChild(scoresHeaderRow)
-
-    const scoresNameHeader = document.createElement('th')
-    scoresNameHeader.innerText = 'Name'
-    scoresHeaderRow.appendChild(scoresNameHeader)
-
-    const scoreHeader = document.createElement('th')
-    scoreHeader.innerText = 'Score'
-    scoresHeaderRow.appendChild(scoreHeader)
-}
-
-// Build Leaderboard
-function renderLeaderboard(type) {
-
-    hideStaticElements()
-
-    fetch(`http://localhost:3000/games/${type}`)
-    .then(resp => resp.json())
-    .then(resp => {
-
-        const scoresDiv = document.createElement('div')
-        scoresDiv.setAttribute('class', 'container-fluid text-center')
-        scoresDiv.setAttribute('id', 'scores-div')
-        innerContentWrapper.appendChild(scoresDiv)
-        renderLeaderTables(scoresDiv, type)
-
-        const thisTable = document.getElementById(`${type}`)
         
-        if(resp.length === 0) {
-            const noScores = document.createElement('p')
-            noScores.innerText = 'There are no Scores yet. Play?'
-            scoresDiv.appendChild(noScores)
-        } else {
-            for(let i = 0; i < resp.length; i++) {
-                const thisRow = document.createElement('tr')
-                thisTable.appendChild(thisRow)
-                
-                const myName = document.createElement('td')
-                myName.innerText = resp[i].user.username
-                thisRow.appendChild(myName)
-
-                const myScore = document.createElement('td')
-                myScore.innerText = resp[i].score
-                thisRow.appendChild(myScore)
-            }
+    // Handling Errors
+    function handleErrors(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
         }
-    })
-}
+        return response.json();
+    }
 
-// Build Theme Menu
-function renderThemeSettings(wrapper) {
-    const sidebarWrapper = document.getElementById('sidebar-wrapper')
+    // Remove Content From Inner-Conent Div
+    function clearInnerContent(innerContentWrapper) {
+        innerContentWrapper.innerHTML = ''
+    }
 
-    const classicButton = document.createElement('button')
-    classicButton.innerText = 'Classic'
-    wrapper.appendChild(classicButton)
-    classicButton.addEventListener('click', function(event) {
-        event.preventDefault()
-        sidebarWrapper.setAttribute('class', 'classic-theme')
-    })
+    // Leaderboard Table Helper Methods
+    function renderLeaderTables(gameTypeDiv, type) {
+        const scoresTitle = document.createElement('h2')
+        scoresTitle.innerText = `${type} scores table`
+        gameTypeDiv.appendChild(scoresTitle)
 
-    const darkButton = document.createElement('button')
-    darkButton.innerText = 'Dark'
-    darkButton.addEventListener('click', function(event) {
-        event.preventDefault()
-        sidebarWrapper.setAttribute('class', 'dark-theme')
-    })
-    wrapper.appendChild(darkButton)
+        const scoresTable = document.createElement('table')
+        scoresTable.setAttribute('id', type)
+        scoresTable.setAttribute('class', 'text-center')
+        gameTypeDiv.appendChild(scoresTable)
 
-    const lightButton = document.createElement('button')
-    lightButton.innerText = 'Light'
-    lightButton.addEventListener('click', function(event) {
-        event.preventDefault()
-        sidebarWrapper.setAttribute('class', 'light-theme')
-    })
-    wrapper.appendChild(lightButton)   
-}
+        const scoresHeaderRow = document.createElement('tr')
+        scoresHeaderRow.setAttribute('class', 'table-header-row')
+        scoresTable.appendChild(scoresHeaderRow)
+
+        const scoresNameHeader = document.createElement('th')
+        scoresNameHeader.innerText = 'Name'
+        scoresHeaderRow.appendChild(scoresNameHeader)
+
+        const scoreHeader = document.createElement('th')
+        scoreHeader.innerText = 'Score'
+        scoresHeaderRow.appendChild(scoreHeader)
+    }
+
+    // Build Leaderboard
+    function renderLeaderboard(type) {
+
+        hideStaticElements()
+
+        fetch(`http://localhost:3000/games/${type}`)
+        .then(resp => resp.json())
+        .then(resp => {
+
+            const scoresDiv = document.createElement('div')
+            scoresDiv.setAttribute('class', 'container-fluid text-center')
+            scoresDiv.setAttribute('id', 'scores-div')
+            innerContentWrapper.appendChild(scoresDiv)
+            renderLeaderTables(scoresDiv, type)
+
+            const thisTable = document.getElementById(`${type}`)
+            
+            if(resp.length === 0) {
+                const noScores = document.createElement('p')
+                noScores.innerText = 'There are no Scores yet. Play?'
+                scoresDiv.appendChild(noScores)
+            } else {
+                for(let i = 0; i < resp.length; i++) {
+                    const thisRow = document.createElement('tr')
+                    thisTable.appendChild(thisRow)
+                    
+                    const myName = document.createElement('td')
+                    myName.innerText = resp[i].user.username
+                    thisRow.appendChild(myName)
+
+                    const myScore = document.createElement('td')
+                    myScore.innerText = resp[i].score
+                    thisRow.appendChild(myScore)
+                }
+            }
+        })
+    }
+
+    // Build Theme Menu
+    function renderThemeSettings(wrapper) {
+        const sidebarWrapper = document.getElementById('sidebar-wrapper')
+
+        const classicButton = document.createElement('button')
+        classicButton.innerText = 'Classic'
+        wrapper.appendChild(classicButton)
+        classicButton.addEventListener('click', function(event) {
+            event.preventDefault()
+            sidebarWrapper.setAttribute('class', 'classic-theme')
+        })
+
+        const darkButton = document.createElement('button')
+        darkButton.innerText = 'Dark'
+        darkButton.addEventListener('click', function(event) {
+            event.preventDefault()
+            sidebarWrapper.setAttribute('class', 'dark-theme')
+        })
+        wrapper.appendChild(darkButton)
+
+        const lightButton = document.createElement('button')
+        lightButton.innerText = 'Light'
+        lightButton.addEventListener('click', function(event) {
+            event.preventDefault()
+            sidebarWrapper.setAttribute('class', 'light-theme')
+        })
+        wrapper.appendChild(lightButton)   
+    }
 
     function hideStaticElements() {
         for(element of staticElements) {
             element.classList.add('hidden')
         }
     }
-
 
     $("#menu-toggle").click(function(event){
         event.preventDefault()
@@ -221,15 +217,11 @@ function renderThemeSettings(wrapper) {
         renderLeaderboard('regular')
     })
 
-
-    console.log(trillButton)
     trillButton.addEventListener('mousedown', (event) => {
-        console.log('down')
         trillAudio.play()
     })
 
     trillButton.addEventListener('mouseup', (event) => {
-        console.log('up')
         trillAudio.pause()
     })
     
@@ -247,7 +239,6 @@ function renderThemeSettings(wrapper) {
         .then(response => response.json())
         .then(response => {
             let songObj = response.response
-                console.log(songObj)
                 for (var songs of songObj.songs) {
                     let innerContent = document.getElementById('inner-content')
                     let div = document.createElement('lizzo-songs')
@@ -261,15 +252,11 @@ function renderThemeSettings(wrapper) {
                     ul.appendChild(link)
                     div.appendChild(ul)
                     innerContent.appendChild(div)
-                
                 }
             })
             .catch(err => {
                 console.log(err);
             });
         });
-    
-
-
 });
-      
+        

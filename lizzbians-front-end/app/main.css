@@ -220,6 +220,31 @@ h2 {
     width: 100%
 }
 
+.congrats {
+    width: 200px;
+    border-radius: 100%;
+    border: 10px solid #D4AF37
+}
+
+figcaption {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+    color: #D4AF37
+}
+
+figure {
+    margin-top: 3%
+}
+
+.o-hide {
+    opacity: 0;
+    transition: all ease 5s;
+  }
+
+  .o-show {
+    opacity: 1;
+    transition: all ease 5s;
+  }
 .lizzo-songs {
     line-height:15px;
     padding: 7px;
