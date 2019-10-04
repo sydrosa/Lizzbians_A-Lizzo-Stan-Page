@@ -245,3 +245,9 @@ figure {
     opacity: 1;
     transition: all ease 5s;
   }
+.lizzo-songs {
+    line-height:15px;
+    padding: 7px;
+}
+
+
