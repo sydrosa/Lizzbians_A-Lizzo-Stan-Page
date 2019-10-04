@@ -53,55 +53,55 @@
                     <li><a href="#" id='trivia'>Play Trivia</a></li>
                 </ul>
             </div>
-        </div>         
-        <div id="page-content-wrapper" data-username='' class='container-fluid'>
-            <img class='hidden' id='trill-button' src=https://lizzbians.s3-us-west-2.amazonaws.com/image.png >
-            <audio controls src="https://lizzbians.s3-us-west-2.amazonaws.com/44+second+flute+trill+-+world+record+lol.mp3" id='trill-audio' class='hidden'></audio>
-            <div class="container-fluid">
-                <div class="row">
-                    <a href="#" class="btn hidden" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
-                    <!-- Page Content -->
-                    <div id='inner-content' class='col-lg-12'>
-                    </div>
-                    <div id='static-elements'>
-                        <!-- Choose a Game Type -->
-                        <div id='choose-game-type' class='container-fluid text-center justify-content-center hidden'>
-                            <div class='col-lg justify-content-center' >
-                                <button id='regular-game-button' class="login100-form-btn">regular<br>trivia</button>
-                            </div>
-                            <div class='col-lg justify-content-center'>
-                                <button id='speed-game-button' class="login100-form-btn">speed<br>trivia</button>
-                            </div>
+            <div id="page-content-wrapper" data-username='' class='container-fluid'>
+                <img class='hidden' id='trill-button' src=https://lizzbians.s3-us-west-2.amazonaws.com/image.png >
+                <audio controls src="https://lizzbians.s3-us-west-2.amazonaws.com/44+second+flute+trill+-+world+record+lol.mp3" id='trill-audio' class='hidden'></audio>
+                <div class="container-fluid">
+                    <div class="row">
+                        <a href="#" class="btn hidden" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+                        <!-- Page Content -->
+                        <div id='inner-content' class='col-lg-12'>
                         </div>
-                        <!-- Game Play -->
-                        <div id='game-div' class='container-fluid text-center hidden'>
-                            <audio controls src="" id='question-audio' class='hidden'></audio>
-                            <div class='row col-xlg-12 justify-content-center'>
-                                <div class="container col-lg" id="timer">
-                                    <p class='hidden' id="time-goes-here"></p>
-                                </div>  
-                                <div class='col-lg d-flex align-items-center text-center'>
-                                    <h1 id='question-content' class='text-center'> Question </h1>
+                        <div id='static-elements'>
+                            <!-- Choose a Game Type -->
+                            <div id='choose-game-type' class='container-fluid text-center justify-content-center hidden'>
+                                <div class='col-lg justify-content-center' >
+                                    <button id='regular-game-button' class="login100-form-btn">regular<br>trivia</button>
                                 </div>
-                                <div class="container col-lg" id="score">
-                                    <div id='score-badge' class='d-flex align-items-center'>
-                                        <p id="score-goes-here" class='text-center'></p>    
+                                <div class='col-lg justify-content-center'>
+                                    <button id='speed-game-button' class="login100-form-btn">speed<br>trivia</button>
+                                </div>
+                            </div>
+                            <!-- Game Play -->
+                            <div id='game-div' class='container-fluid text-center hidden'>
+                                <audio controls src="" id='question-audio' class='hidden'></audio>
+                                <div class='row col-xlg-12 justify-content-center'>
+                                    <div class="container col-lg" id="timer">
+                                        <p class='hidden' id="time-goes-here"></p>
+                                    </div>  
+                                    <div class='col-lg d-flex align-items-center text-center'>
+                                        <h1 id='question-content' class='text-center'> Question </h1>
+                                    </div>
+                                    <div class="container col-lg" id="score">
+                                        <div id='score-badge' class='d-flex align-items-center'>
+                                            <p id="score-goes-here" class='text-center'></p>    
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id='answers-row' class=row>
-                                <div class='answer-button-div col-lg col-m'>
-                                </div>
-                                <div class='answer-button-div col-lg col-m'>
-                                </div>
-                                <div class='answer-button-div col-lg col-m'>
-                                </div>
-                                <div class='answer-button-div col-lg col-m'>
-                                </div>
-                            </div> 
-                            <div id='progress-div' class="container">
-                                <div class="progress">
-                                    <div id='progress-bar' class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                <div id='answers-row' class=row>
+                                    <div class='answer-button-div col-lg col-m'>
+                                    </div>
+                                    <div class='answer-button-div col-lg col-m'>
+                                    </div>
+                                    <div class='answer-button-div col-lg col-m'>
+                                    </div>
+                                    <div class='answer-button-div col-lg col-m'>
+                                    </div>
+                                </div> 
+                                <div id='progress-div' class="container">
+                                    <div class="progress">
+                                        <div id='progress-bar' class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -128,18 +128,17 @@
                                             <div class="wrap-login100-form-btn">
                                                 <div class="login100-form-bgbtn">
                                                 </div>
-                                                <button id='signup' class="login100-form-btn">Sign Up</button>
+                                                <a id='login' href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">Login<i class="fa fa-long-arrow-right m-l-5"></i></a>
                                             </div>
-                                            <a id='login' href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">Login<i class="fa fa-long-arrow-right m-l-5"></i></a>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> 
+                        </div> 
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>         
     
         <script src="Login_v13/vendor/jquery/jquery-3.2.1.min.js"></script>
         <script src="Login_v13/vendor/animsition/js/animsition.min.js"></script>
