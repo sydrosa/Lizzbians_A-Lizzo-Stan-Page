@@ -225,6 +225,8 @@ function renderThemeSettings(wrapper) {
     })
 
 lyrics.addEventListener('click', (event) => {
+    clearInnerContent(innerContentWrapper);
+    hideStaticElements();
     fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
         "method": "GET",
         "headers": {
@@ -237,8 +239,17 @@ lyrics.addEventListener('click', (event) => {
         let songObj = response.response
             console.log(songObj)
             for (var songs of songObj.songs) {
-                // let songArray = songObj.songs
-
+                let innerContent = document.getElementById('inner-content')
+                let div = document.createElement('lizzo-songs')
+                let ul = document.createElement('ul')
+                let link = document.createElement('a')
+                let linkText = document.createTextNode(`${songs.full_title}`)
+                link.title = `${songs.full_title}`
+                link.href = `${songs.url}`
+                link.appendChild(linkText)
+                div.appendChild(ul)
+                innerContent.appendChild(div)
+            
                 console.log(songs.full_title)
             }
         })
