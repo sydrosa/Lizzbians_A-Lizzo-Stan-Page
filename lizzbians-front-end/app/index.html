@@ -103,26 +103,19 @@
                             <div class='col-lg justify-content-center'>
                                 <button id='speed-game-button' class="login100-form-btn">speed<br>trivia</button>
                             </div>
-
-
                         </div>
                         <!-- Game Play -->
                         <div id='game-div' class='container-fluid text-center hidden'>
                             <audio controls src="" id='question-audio' class='hidden'></audio>
-                            <div class='row justify-content-center'>
-                                <div>
-                                    <img id='question-image' src='https://lizzbians.s3-us-west-2.amazonaws.com/naked+16+by+9.jpg'>
-                                </div>
-                            </div>
-                            <div class="container" id="timer">
+                            <div class='row col-xlg-12 justify-content-center'>
+                                <div class="container col-lg" id="timer">
                                     <p id="time-goes-here"></p>
                                 </div>  
-                                <div class="container" id="score">
-                                    <p id="score-goes-here"></p>
-                                </div>
-                            <div class=row>
                                 <div class='col-lg'>
-                                    <p id='question-content'> Question </p>
+                                    <h1 id='question-content'> Question </h1>
+                                </div>
+                                <div class="container col-lg" id="score">
+                                        <p id="score-goes-here"></p>
                                 </div>
                             </div>
                             <div id='answers-row' class=row>
@@ -134,70 +127,51 @@
                                 </div>
                                 <div class='answer-button-div col-lg col-m'>
                                 </div>
-                            </div>                           
+                            </div> 
                         </div>
                         <!-- Log In/Sign Up -->
-
+                        <div id="login-div" class="limiter">
+                                <div class="container-login100">
+                                    <div class="login100-more" style="background-image: url('https://peopledotcom.files.wordpress.com/2019/07/lizzo-2-e1563906165171.jpg?w=1625&h=1195');"></div>
                         
-	<div id="login-div" class="limiter">
-            <div class="container-login100">
-                <div class="login100-more" style="background-image: url('https://peopledotcom.files.wordpress.com/2019/07/lizzo-2-e1563906165171.jpg?w=1625&h=1195');"></div>
-    
-                <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-                    <form class="login100-form validate-form">
-                        <span class="login100-form-title p-b-59">
-                            Sign Up
-                        </span>
-    
-                        <div class="wrap-input100 validate-input" data-validate="Username is required">
-                            <span class="label-input100">Username</span>
-                            <input id='username' class="input100" type="text" name="username" placeholder="Username...">
-                            <span class="focus-input100"></span>
-                        </div>
-    
-                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                            <span class="label-input100">Password</span>
-                            <input id='password' class="input100" type="text" name="pass" placeholder="*************">
-                            <span class="focus-input100"></span>
+                                    <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+                                        <form class="login100-form validate-form">
+                                            <span class="login100-form-title p-b-59">
+                                                Sign Up
+                                            </span>
+                        
+                                            <div class="wrap-input100 validate-input" data-validate="Username is required">
+                                                <span class="label-input100">Username</span>
+                                                <input id='username' class="input100" type="text" name="username" placeholder="Username...">
+                                                <span class="focus-input100"></span>
+                                            </div>
+                        
+                                            <div class="wrap-input100 validate-input" data-validate = "Password is required">
+                                                <span class="label-input100">Password</span>
+                                                <input id='password' class="input100" type="text" name="pass" placeholder="*************">
+                                                <span class="focus-input100"></span>
 
-                        </div>
-                        <div class="container-login100-form-btn">
-                                <div class="wrap-login100-form-btn">
-                                    <div class="login100-form-bgbtn"></div>
-                                    <button id='signup' class="login100-form-btn">
-                                        Sign Up
-                                    </button>
-                                </div>
-        
-                                <a id='login' href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
-                                    Login
-                                    <i class="fa fa-long-arrow-right m-l-5"></i>
-                                </a>
-                            </div>
-    
+                                            </div>
+                                            <div class="container-login100-form-btn">
+                                                    <div class="wrap-login100-form-btn">
+                                                        <div class="login100-form-bgbtn"></div>
+                                                        <button id='signup' class="login100-form-btn">
+                                                            Sign Up
+                                                        </button>
+                                                    </div>
                             
+                                                    <a id='login' href="#" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+                                                        Login
+                                                        <i class="fa fa-long-arrow-right m-l-5"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> 
                         </div>
-    
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-                        <!-- <div class="container-fluid text-center col-lg-12" id="login-div">
-                            <form id="login-form">
-                                <label for="username"><b>Username</b></label>
-                                <input type="text" id="username" placeholder="Enter Username" name="username" required>
-                        
-                                <label for="psw"><b>Password</b></label>
-                                <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
-                        
-                                <button type="submit" id="signup">Signup</button>
-                                <button type="submit" id="login">Login</button>
-                            </form>
-                        </div>  -->
                     </div>
-                </div>
-           
         </div>
     </div>
     <!--===============================================================================================-->

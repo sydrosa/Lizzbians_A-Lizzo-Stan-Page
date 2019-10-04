@@ -72,7 +72,7 @@ function hideStaticElements() {
 // Leaderboard Table Helper Methods
 function renderLeaderTables(gameTypeDiv, type) {
     const scoresTitle = document.createElement('h2')
-    scoresTitle.innerText = `${type} Scores Table`
+    scoresTitle.innerText = `${type} scores table`
     gameTypeDiv.appendChild(scoresTitle)
 
     const scoresTable = document.createElement('table')
@@ -287,6 +287,7 @@ function recordHighScore(gameType) {
     })
 
     function countDownTimer(allowedWrongAnswers, gameType) {
+
         let timer = document.getElementById('time-goes-here')
         score = 10;
         ticker = setInterval(function () {
@@ -318,6 +319,9 @@ function recordHighScore(gameType) {
             }, 10000)
         }  
     }
+    
+
+    
 })
 
 
