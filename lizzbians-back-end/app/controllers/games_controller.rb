@@ -9,12 +9,9 @@ class GamesController < ApplicationController
     def create
         puts params
         user = User.find_by(username: params[:username])
-        # byebug
         game = Game.create(user_id: user.id, score: params[:score], game_type: params[:game_type])
-        render json: {status: 'yay!'}
+        games = Game.all.where('game_type = ?', params['game_type']).limit(10).order('score desc')
+        index = Game.order(score: :desc).pluck(:id).index(game.id)
+        render json: index
     end
-
-    # def game_params
-    #     params.permit(:user_id, :game_type, :score)
-    # end
 end

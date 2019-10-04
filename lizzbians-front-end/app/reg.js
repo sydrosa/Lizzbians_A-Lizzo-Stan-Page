@@ -106,6 +106,7 @@ function renderLeaderboard(type) {
         const scoresDiv = document.createElement('div')
         innerContentWrapper.appendChild(scoresDiv)
         scoresDiv.setAttribute('class', 'container-fluid text-center')
+        scoresDiv.setAttribute('id', 'scores-div')
         renderLeaderTables(scoresDiv, type)
 
         const thisTable = document.getElementById(`${type}`)
@@ -269,10 +270,10 @@ function recordHighScore(gameType) {
             score: scoreScreenGrab
         })
     })
-    .then(function (data) {  
-      console.log('Request success: ', data);  
-    })  
-    .then(function() {
+    .then(resp => resp.json()  )
+    .then(resp =>  {
+        console.log(resp)
+        // resp < 10 attach badge
         setTimeout(function() {renderLeaderboard(gameType)}, 1000)
     })
 }
