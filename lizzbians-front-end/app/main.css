@@ -90,7 +90,8 @@ table {
     position: fixed;
     right: 0%;
     bottom: 0%;
-    width: 20%
+    width: 20%;
+    z-index: 50000;
 }
 
 .choice-image, .choice-button {
@@ -196,7 +197,7 @@ h2 {
 
 #score-badge {
     border-radius: 100%;
-    background:#74D2F4;
+    border: 5px solid #74D2F4;
     /* -webkit-linear-gradient(top, rgba(232, 81, 158, 0.51),rgba(199, 127, 242, 0.51) ); */
     height: 100px;
     width: 100px;
