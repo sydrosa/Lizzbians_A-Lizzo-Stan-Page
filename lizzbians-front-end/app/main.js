@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const staticElements = document.getElementById('static-elements').children
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
-    const sideBar = document.getElement
+    const lyrics = document.getElementById('lyrics')
     let username;
 
     function userLogIn() {
@@ -220,5 +220,29 @@ function renderThemeSettings(wrapper) {
     trillButton.addEventListener('mouseup', (event) => {
         trillAudio.pause()
     })
+
+lyrics.addEventListener('click', (event) => {
+    fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "genius.p.rapidapi.com",
+            "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        let songObj = response.response
+            console.log(songObj)
+            for (var songs of songObj.songs) {
+                // let songArray = songObj.songs
+                console.log(songs.full_title)
+            }
+        })
+    
+    .catch(err => {
+        console.log(err);
+    });
+});
+
 });
       
