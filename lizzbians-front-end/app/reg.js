@@ -274,6 +274,12 @@ function recordHighScore(gameType) {
     .then(resp =>  {
         console.log(resp)
         // resp < 10 attach badge
+        if (resp < 10) {
+            const youGotIt = document.createElement('img')
+            youGotIt.src = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/screen-shot-2019-09-06-at-10-18-57-am-1567779564.png'
+            youGotIt.classList.add('congrats')
+            scoresDiv.appendChild(youGotIt)
+        }
         setTimeout(function() {renderLeaderboard(gameType)}, 1000)
     })
 }
