@@ -15,9 +15,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const staticElements = document.getElementById('static-elements').children
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
-    const sideBar = document.getElementById('menu-toggle')
-    const pageTitle = document.getElementById('page-title')
-    let username;
+    const lyrics = document.getElementById('lyrics')
+    let username; 
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
@@ -39,13 +38,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
             .then(handleErrors)
 
             .then (response => {
-                
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
-                trillButton.classList.toggle('hidden')
-                sideBar.classList.toggle('hidden')
-                // pageTitle.classList.toggle('hidden')
             })
             .catch(function (error){
                 alert ("Login was unsuccsessful. Please try again!");
@@ -75,9 +70,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
-                trillButton.classList.toggle('hidden')
-                sideBar.classList.toggle('hidden')
-                pageTitle.classList.toggle('hidden')
             })
             .catch(function (error){
                 console.log(`this doesn't work`, error);
@@ -231,5 +223,30 @@ function renderThemeSettings(wrapper) {
     trillButton.addEventListener('mouseup', (event) => {
         trillAudio.pause()
     })
+
+lyrics.addEventListener('click', (event) => {
+    fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "genius.p.rapidapi.com",
+            "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        let songObj = response.response
+            console.log(songObj)
+            for (var songs of songObj.songs) {
+                // let songArray = songObj.songs
+
+                console.log(songs.full_title)
+            }
+        })
+    
+    .catch(err => {
+        console.log(err);
+    });
+});
+
 });
       
