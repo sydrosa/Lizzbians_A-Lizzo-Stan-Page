@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
     const lyrics = document.getElementById('lyrics')
+    const trillButton = document.getElementById('trill-button')
+    const menuToggle = document.getElementById('menu-toggle')
     let username; 
 
     function userLogIn() {
@@ -41,6 +43,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
+                trillButton.classList.toggle('hidden')
+                menuToggle.classList.toggle('hidden')
             })
             .catch(function (error){
                 alert ("Login was unsuccsessful. Please try again!");
@@ -70,6 +74,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 clearInnerContent(innerContentWrapper);
                 loginDiv.classList.add('hidden')
                 gameChoice.classList.toggle('hidden')
+                trillButton.classList.toggle('hidden')
+                menuToggle.classList.toggle('hidden')
             })
             .catch(function (error){
                 console.log(`this doesn't work`, error);
@@ -215,38 +221,41 @@ function renderThemeSettings(wrapper) {
         renderLeaderboard('regular')
     })
 
-    const trillButton = document.getElementById('trill-button')
+
+    console.log(trillButton)
     trillButton.addEventListener('mousedown', (event) => {
+        console.log('down')
         trillAudio.play()
     })
 
     trillButton.addEventListener('mouseup', (event) => {
+        console.log('up')
         trillAudio.pause()
     })
 
-lyrics.addEventListener('click', (event) => {
-    fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "genius.p.rapidapi.com",
-            "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
-        }
-    })
-    .then(response => response.json())
-    .then(response => {
-        let songObj = response.response
-            console.log(songObj)
-            for (var songs of songObj.songs) {
-                // let songArray = songObj.songs
-
-                console.log(songs.full_title)
+    lyrics.addEventListener('click', (event) => {
+        fetch("https://genius.p.rapidapi.com/artists/84514/songs", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "genius.p.rapidapi.com",
+                "x-rapidapi-key": "3d58d2935bmsh1b1152c34f96a11p1a7439jsn25bb3f4d4554"
             }
         })
-    
-    .catch(err => {
-        console.log(err);
+        .then(response => response.json())
+        .then(response => {
+            let songObj = response.response
+                console.log(songObj)
+                for (var songs of songObj.songs) {
+                    // let songArray = songObj.songs
+
+                    console.log(songs.full_title)
+                }
+            })
+        
+        .catch(err => {
+            console.log(err);
+        });
     });
-});
 
 });
       
