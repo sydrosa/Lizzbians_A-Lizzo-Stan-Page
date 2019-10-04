@@ -219,3 +219,19 @@ h2 {
 .d-flex > h1 {
     width: 100%
 }
+
+.congrats {
+    width: 200px;
+    border-radius: 100%;
+    border: 10px solid #D4AF37
+}
+
+figcaption {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+    color: #D4AF37
+}
+
+figure {
+    margin-top: 3%
+}

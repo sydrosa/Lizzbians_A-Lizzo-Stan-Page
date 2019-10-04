@@ -93,7 +93,7 @@ function renderLeaderTables(gameTypeDiv, type) {
 }
 
 // Build Leaderboard 
-function renderLeaderboard(type) {
+function renderLeaderboard(type, positionResp) {
     clearInterval(ticker);
     console.log('fetch Leaderboard')
     clearInnerContent(innerContentWrapper)
@@ -128,6 +128,22 @@ function renderLeaderboard(type) {
                 myScore.innerText = resp[i].score
                 thisRow.appendChild(myScore)
             }
+        }
+        // resp < 10 attach badge
+        if (positionResp < 10) {
+            let scoresDiv = document.getElementById('scores-div')
+            
+            const congratsFigure = document.createElement('figure')
+            scoresDiv.appendChild(congratsFigure)
+
+            const youGotIt = document.createElement('img')
+            youGotIt.src = 'https://media.giphy.com/media/H3dpw7WpXz3s1yi2YB/giphy.gif'
+            youGotIt.classList.add('congrats')
+            congratsFigure.appendChild(youGotIt)
+
+            const congratsCaption = document.createElement('figcaption')
+            congratsCaption.innerText = 'Twerk skills up on legendary'
+            congratsFigure.appendChild(congratsCaption)
         }
     })
 }
@@ -272,16 +288,9 @@ function recordHighScore(gameType) {
     })
     .then(resp => resp.json()  )
     .then(resp =>  {
-        console.log(resp)
-        // resp < 10 attach badge
-        if (resp < 10) {
-            const youGotIt = document.createElement('img')
-            youGotIt.src = 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/screen-shot-2019-09-06-at-10-18-57-am-1567779564.png'
-            youGotIt.classList.add('congrats')
-            scoresDiv.appendChild(youGotIt)
-        }
-        setTimeout(function() {renderLeaderboard(gameType)}, 1000)
+        setTimeout(function() {renderLeaderboard(gameType, resp)}, 1000)
     })
+
 }
 
     regularGameButton.addEventListener('click', (event) => {
@@ -311,7 +320,6 @@ function recordHighScore(gameType) {
                     clearInterval(ticker);
                 }
             }
-
             else {
                 score--;
             }
@@ -328,9 +336,6 @@ function recordHighScore(gameType) {
             }, 10000)
         }  
     }
-    
-
-    
 })
 
 
