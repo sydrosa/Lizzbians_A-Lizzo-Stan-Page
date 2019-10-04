@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const gameChoice = document.getElementById('choose-game-type')
     const loginDiv = document.getElementById('login-div')
     const lyrics = document.getElementById('lyrics')
-    let username;
+    let username; 
 
     function userLogIn() {
         loginButton.addEventListener('click', (event) => {
@@ -235,6 +235,7 @@ lyrics.addEventListener('click', (event) => {
             console.log(songObj)
             for (var songs of songObj.songs) {
                 // let songArray = songObj.songs
+
                 console.log(songs.full_title)
             }
         })
