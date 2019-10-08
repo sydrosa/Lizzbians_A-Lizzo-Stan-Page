@@ -1,4 +1,4 @@
-# Lizzbians_A-Lizzo-Stan-Page
+# Lizzbians
 Why men great 'til they gotta be great?
 Want to learn more about your favorite artist, Lizzo? Sign up for Lizzbians -- a dynamic, single page fan site where you can check out popular Lizzo lyrics and play trivia!
 
@@ -12,8 +12,11 @@ https://andrewrosario.github.io/Lizzbians_A-Lizzo-Stan-Page/
 
 ## Installing
 Make sure rails is installed on your local server.
+
 Run ```bundle install``` in your terminal
+
 Run ```rails s``` in your terminal
+
 Right click on ```index.html``` and copy path into your browser.
 
 You should now be up and running!
